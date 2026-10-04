@@ -1,0 +1,86 @@
+solid DISPLAY_SUBASSEMBLY
+  facet normal 0.0 0.0 -1.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 48.000 48.000 0.000
+      vertex 48.000 0.000 0.000
+    endloop
+  endfacet
+  facet normal 0.0 0.0 -1.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 0.000 48.000 0.000
+      vertex 48.000 48.000 0.000
+    endloop
+  endfacet
+  facet normal 0.0 0.0 1.0
+    outer loop
+      vertex 0.000 0.000 2.200
+      vertex 48.000 0.000 2.200
+      vertex 48.000 48.000 2.200
+    endloop
+  endfacet
+  facet normal 0.0 0.0 1.0
+    outer loop
+      vertex 0.000 0.000 2.200
+      vertex 48.000 48.000 2.200
+      vertex 0.000 48.000 2.200
+    endloop
+  endfacet
+  facet normal 0.0 -1.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 48.000 0.000 0.000
+      vertex 48.000 0.000 2.200
+    endloop
+  endfacet
+  facet normal 0.0 -1.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 48.000 0.000 2.200
+      vertex 0.000 0.000 2.200
+    endloop
+  endfacet
+  facet normal 0.0 1.0 0.0
+    outer loop
+      vertex 48.000 48.000 0.000
+      vertex 0.000 48.000 0.000
+      vertex 0.000 48.000 2.200
+    endloop
+  endfacet
+  facet normal 0.0 1.0 0.0
+    outer loop
+      vertex 48.000 48.000 0.000
+      vertex 0.000 48.000 2.200
+      vertex 48.000 48.000 2.200
+    endloop
+  endfacet
+  facet normal -1.0 0.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 0.000 0.000 2.200
+      vertex 0.000 48.000 2.200
+    endloop
+  endfacet
+  facet normal -1.0 0.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 0.000 48.000 2.200
+      vertex 0.000 48.000 0.000
+    endloop
+  endfacet
+  facet normal 1.0 0.0 0.0
+    outer loop
+      vertex 48.000 0.000 0.000
+      vertex 48.000 48.000 0.000
+      vertex 48.000 48.000 2.200
+    endloop
+  endfacet
+  facet normal 1.0 0.0 0.0
+    outer loop
+      vertex 48.000 0.000 0.000
+      vertex 48.000 48.000 2.200
+      vertex 48.000 0.000 2.200
+    endloop
+  endfacet
+endsolid DISPLAY_SUBASSEMBLY

@@ -1,0 +1,86 @@
+solid AIR_MONITOR_PCB
+  facet normal 0.0 0.0 -1.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 64.000 64.000 0.000
+      vertex 64.000 0.000 0.000
+    endloop
+  endfacet
+  facet normal 0.0 0.0 -1.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 0.000 64.000 0.000
+      vertex 64.000 64.000 0.000
+    endloop
+  endfacet
+  facet normal 0.0 0.0 1.0
+    outer loop
+      vertex 0.000 0.000 1.600
+      vertex 64.000 0.000 1.600
+      vertex 64.000 64.000 1.600
+    endloop
+  endfacet
+  facet normal 0.0 0.0 1.0
+    outer loop
+      vertex 0.000 0.000 1.600
+      vertex 64.000 64.000 1.600
+      vertex 0.000 64.000 1.600
+    endloop
+  endfacet
+  facet normal 0.0 -1.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 64.000 0.000 0.000
+      vertex 64.000 0.000 1.600
+    endloop
+  endfacet
+  facet normal 0.0 -1.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 64.000 0.000 1.600
+      vertex 0.000 0.000 1.600
+    endloop
+  endfacet
+  facet normal 0.0 1.0 0.0
+    outer loop
+      vertex 64.000 64.000 0.000
+      vertex 0.000 64.000 0.000
+      vertex 0.000 64.000 1.600
+    endloop
+  endfacet
+  facet normal 0.0 1.0 0.0
+    outer loop
+      vertex 64.000 64.000 0.000
+      vertex 0.000 64.000 1.600
+      vertex 64.000 64.000 1.600
+    endloop
+  endfacet
+  facet normal -1.0 0.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 0.000 0.000 1.600
+      vertex 0.000 64.000 1.600
+    endloop
+  endfacet
+  facet normal -1.0 0.0 0.0
+    outer loop
+      vertex 0.000 0.000 0.000
+      vertex 0.000 64.000 1.600
+      vertex 0.000 64.000 0.000
+    endloop
+  endfacet
+  facet normal 1.0 0.0 0.0
+    outer loop
+      vertex 64.000 0.000 0.000
+      vertex 64.000 64.000 0.000
+      vertex 64.000 64.000 1.600
+    endloop
+  endfacet
+  facet normal 1.0 0.0 0.0
+    outer loop
+      vertex 64.000 0.000 0.000
+      vertex 64.000 64.000 1.600
+      vertex 64.000 0.000 1.600
+    endloop
+  endfacet
+endsolid AIR_MONITOR_PCB

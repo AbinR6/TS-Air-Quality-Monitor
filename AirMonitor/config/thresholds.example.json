@@ -1,0 +1,8 @@
+{
+  "_comment": "EXAMPLE ONLY. Values are NOT final. Each band must cite an authority + date in 09_Documentation/DATA_SCHEMA.md (Phase 12) before use.",
+  "schema_version": 1,
+  "status": "PLACEHOLDER — sources not yet attached",
+  "pm25_ugm3": [],
+  "pm10_ugm3": [],
+  "co2_ppm": []
+}

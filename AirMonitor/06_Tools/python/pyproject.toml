@@ -1,0 +1,16 @@
+[project]
+name = "airmonitor-tools"
+version = "0.0.1"
+description = "Engineering tooling, generators, consistency checks and host tools for the Air Monitor project"
+requires-python = ">=3.11"
+dependencies = [
+    "pillow>=10",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+host = ["pyserial", "pandas", "matplotlib", "requests", "paho-mqtt", "jsonschema"]
+dev = ["pytest", "ruff"]
+
+[tool.ruff]
+line-length = 110

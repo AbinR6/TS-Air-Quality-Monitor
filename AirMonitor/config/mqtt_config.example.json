@@ -1,0 +1,12 @@
+{
+  "_comment": "EXAMPLE ONLY. Placeholders.",
+  "schema_version": 1,
+  "host": "YOUR_BROKER",
+  "port": 1883,
+  "username": "YOUR_USERNAME",
+  "password": "YOUR_PASSWORD",
+  "tls": false,
+  "qos": 1,
+  "base_topic": "airmonitor",
+  "home_assistant_discovery": true
+}

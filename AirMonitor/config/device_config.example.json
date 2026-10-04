@@ -1,0 +1,12 @@
+{
+  "_comment": "EXAMPLE ONLY. Placeholders. Copy to device_config.json locally; never commit real values.",
+  "schema_version": 1,
+  "device_id": "airmonitor-001",
+  "device_name": "Air Monitor",
+  "location_label": "living_room",
+  "timezone": "UTC0",
+  "wifi": { "ssid": "YOUR_WIFI", "password": "YOUR_PASSWORD" },
+  "reporting_interval_s": 60,
+  "display": { "auto_rotate_s": 0, "brightness": "auto" },
+  "simulation_mode": false
+}

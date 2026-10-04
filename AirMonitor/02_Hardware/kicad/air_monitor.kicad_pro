@@ -1,0 +1,133 @@
+{
+  "board": {
+    "design_settings": {
+      "boundary_margin": 0.5,
+      "copper_line_width": 0.2,
+      "copper_ring_width": 0.2,
+      "copper_text_size_h": 1.5,
+      "copper_text_size_v": 1.5,
+      "copper_text_thickness": 0.3,
+      "default_diff_pair_gap": 0.25,
+      "default_diff_pair_via_gap": 0.25,
+      "default_diff_pair_width": 0.2,
+      "differential_pairs": [],
+      "drill_to_hole": 0.25,
+      "hole_to_hole": 0.25,
+      "microvia_drill": 0.1,
+      "microvia_size": 0.2,
+      "min_clearance": 0.15,
+      "min_copper_edge_clearance": 0.3,
+      "min_hole_clearance": 0.25,
+      "min_hole_to_hole": 0.25,
+      "min_microvia_drill": 0.1,
+      "min_microvia_size": 0.2,
+      "min_silk_clearance": 0.15,
+      "min_text_height": 0.8,
+      "min_through_hole_annulus": 0.15,
+      "min_track_width": 0.15,
+      "min_via_annulus": 0.15,
+      "min_via_diameter": 0.45,
+      "solder_mask_clearance": 0.05,
+      "solder_mask_min_width": 0.1,
+      "solder_mask_to_copper_clearance": 0.05,
+      "use_height_for_length_calcs": true,
+      "via_drill": 0.3,
+      "via_size": 0.6
+    },
+    "layer_presets": [],
+    "viewports": []
+  },
+  "boards": [],
+  "cvpcb": {
+    "equivalence_files": []
+  },
+  "erc": {
+    "erc_exclusions": [],
+    "meta": {
+      "version": 0
+    },
+    "severity_gnd": "warning"
+  },
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "meta": {
+    "filename": "air_monitor.kicad_pro",
+    "version": 1
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_drill": 0.1,
+        "microvia_size": 0.2,
+        "name": "Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.25,
+        "via_drill": 0.3,
+        "via_size": 0.6,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.3,
+        "name": "Power",
+        "track_width": 0.6,
+        "via_drill": 0.4,
+        "via_size": 0.8,
+        "wire_width": 12
+      }
+    ]
+  },
+  "pcbnew": {
+    "last_paths": {
+      "gencad": "",
+      "idf": "",
+      "netlist": "",
+      "plot": "",
+      "pos": "",
+      "specctra_dsn": "",
+      "step": "",
+      "svg": "",
+      "vrml": ""
+    }
+  },
+  "schematic": {
+    "annotate_start_num": 1,
+    "drawing": {
+      "dashed_lines_dash_length_ratio": 12.0,
+      "dashed_lines_gap_length_ratio": 3.0,
+      "default_line_thickness": 6.0,
+      "default_text_size": 50.0,
+      "field_names": [],
+      "intersheets_ref_own_page": false,
+      "intersheets_ref_prefix": "",
+      "intersheets_ref_short": false,
+      "intersheets_ref_show": false,
+      "intersheets_ref_suffix": "",
+      "junction_size_choice": 3,
+      "pin_symbol_size": 0.0,
+      "text_offset_ratio": 0.15
+    },
+    "legacy_lib_dir": "",
+    "legacy_lib_list": [],
+    "meta": {
+      "version": 1
+    },
+    "net_format_name": "",
+    "page_layout_descr_file": "",
+    "plot_directory": "",
+    "subpart_first_id": 65,
+    "subpart_parts_per_package": 1
+  },
+  "sheets": [
+    [
+      "932881a2-3f10-410a-9d3e-c6e3d540be81",
+      ""
+    ]
+  ]
+}

@@ -1,0 +1,38 @@
+# Operating System
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+*.tmp
+*~
+
+# Secrets and environment files
+.env
+*.env
+!.env.example
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# ESP-IDF & Build outputs
+**/build/
+**/sdkconfig.old
+**/managed_components/
+**/dependencies.lock
+
+# KiCad backups and locks
+02_Hardware/kicad/*-backups/
+02_Hardware/kicad/fp-info-cache
+02_Hardware/kicad/*.kicad_prl
+02_Hardware/kicad/*.lck
+
+# Node.js
+node_modules/

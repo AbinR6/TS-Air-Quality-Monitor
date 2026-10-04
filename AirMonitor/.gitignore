@@ -1,0 +1,32 @@
+# Secrets
+.env
+*.env
+!.env.example
+secrets/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# ESP-IDF
+04_Firmware/build/
+04_Firmware/sdkconfig
+04_Firmware/sdkconfig.old
+04_Firmware/managed_components/
+04_Firmware/dependencies.lock
+
+# KiCad
+02_Hardware/kicad/*-backups/
+02_Hardware/kicad/fp-info-cache
+02_Hardware/kicad/*.kicad_prl
+02_Hardware/kicad/*.lck
+
+# Node
+node_modules/
+
+# OS
+Thumbs.db
+.DS_Store
