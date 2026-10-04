@@ -1,5 +1,5 @@
 Reference,Description,Manufacturer,Part Number,Package,Quantity,Function,Interface,Status,Notes
-U1,Wi-Fi and BLE Microcontroller Module with 4MB Flash and 8MB PSRAM,Espressif Systems,ESP32-WROVER-B,SMD Module (38-pin),1,Main Processing and Wireless Networking,SPI/UART/I2C/GPIO,Confirmed,Core system compute running ESP-IDF v5.3.2
+U1,High-Performance ARM Cortex-M4 Microcontroller (168 MHz 1MB Flash 192KB RAM),STMicroelectronics,STM32F407ZGT6,LQFP144 (20mm x 20mm),1,Main Processing and System Controller,SPI/UART/I2C/GPIO,Confirmed,Authoritative physical device marking
 U2,Synchronous Step-Down DC-DC Buck Converter 3.3V 1.5A,Texas Instruments,TPS62088YFPT,SOT-23-6 / SOT-563,1,Converts battery/VBUS rail to regulated 3.3V logic rail,Power (Switching),Candidate,Coupled with 2.2uH shielded inductor
 U3,Single Cell Li-Ion Linear Battery Charger with Thermal Regulation,Microchip Technology,MCP73831T-2ACI/OT,SOT-23-5 / DFN-8,1,Manages 1S 18650 Li-ion CC/CV charging from USB 5V,Analog / Power,Candidate,Programmed to 500mA charging rate
 BAT1,Cylindrical Lithium-Ion Rechargeable Battery Cell 3.7V 2500mAh,Industry Standard,18650-2500mAh,Cylinder 18.2mm x 65.0mm,1,Internal Energy Storage for Cordless Operation,2-Wire Lead with Thermistor,Standard,Mounted in base cradle with protection circuit

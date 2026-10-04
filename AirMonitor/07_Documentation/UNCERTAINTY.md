@@ -9,7 +9,7 @@ This register documents technical trade-offs, candidate component evaluations, t
 
 | Subsystem | Candidate Options | Selected Part | Evaluation Rationale & Trade-Offs | Qualification Status |
 |:---|:---|:---|:---|:---|
-| **Main MCU** | ESP32-WROOM-32 vs. ESP32-WROVER-B vs. ESP32-S3 | **ESP32-WROVER-B** | 8 MB embedded PSRAM enables smooth double-buffered 240×320 TFT UI rendering without starving internal SRAM needed for Wi-Fi and FreeRTOS task stacks. | **Confirmed** |
+| **Main MCU** | STM32F407ZGT6 vs. STM32F405 / STM32F429 | **STM32F407ZGT6** | 168 MHz ARM Cortex-M4 with FPU, 1 MB Flash, 192 KB SRAM in LQFP-144 package provides extensive I/O capacity, DMA controllers, and processing bandwidth for real-time sensor fusion and display rendering. | **Confirmed / Authoritative** |
 | **Particulate Sensor** | Plantower PMS5003 vs. PMS7003 vs. Sensirion SPS30 | **Plantower PMS5003** | Widely available dual-channel laser scattering unit with integrated centrifugal fan, 5V power, and straightforward 9600-baud UART interface. | **Candidate** |
 | **CO₂ Sensor** | Sensirion SCD41 vs. Senseair S8 vs. Winsen MH-Z19C | **Sensirion SCD41** | Ultra-compact photoacoustic NDIR package (10.1 × 10.1 mm) with low power consumption (~15–18 mA active) and integrated climate cross-compensation via I²C. | **Candidate** |
 | **Climate Sensor** | Sensirion SHT41 vs. SHTC3 vs. TI HDC2080 | **Sensirion SHT41** | Exceptional precision (±0.2°C, ±1.8% RH), fast response time (<4s), ultra-low power consumption (<1.5 µA average), and high condensation resistance. | **Candidate** |

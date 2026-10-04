@@ -12,7 +12,7 @@
 		(date "2026-10-04")
 		(rev "Rev 1.0")
 		(company "Air Monitor Engineering Team")
-		(comment 1 "Core MCU: Espressif ESP32-WROVER-B")
+		(comment 1 "Core MCU: STMicroelectronics STM32F407ZGT6 (LQFP-144)")
 		(comment 2 "Layer Stackup: 4-Layer FR4 1.6mm")
 		(comment 3 "Dimensions: 64.0mm x 64.0mm")
 	)
@@ -80,7 +80,7 @@
 		(layer "Edge.Cuts")
 		(uuid "a1b2c3d4-e5f6-4789-0123-456789abcdef")
 	)
-	(gr_text "DANY_JPU_MB_P1_ESP32_2022063?"
+	(gr_text "DANY_JPU_MB_P1_STM32_2022063?"
 		(at 132 105)
 		(layer "F.SilkS")
 		(uuid "f1e2d3c4-b5a6-4987-1234-567890abcdef")
@@ -92,16 +92,16 @@
 		(uuid "d3c4b5a6-f1e2-4876-2345-678901abcdef")
 		(effects (font (size 1.0 1.0) (thickness 0.18)))
 	)
-	(footprint "RF_Module:ESP32-WROVER-B"
+	(footprint "Package_QFP:LQFP-144_20x20mm_P0.5mm"
 		(layer "F.Cu")
 		(uuid "e001e001-0000-4000-8000-000000000001")
 		(at 132 150)
-		(descr "Espressif ESP32-WROVER-B module, antenna overhang at bottom edge")
+		(descr "STMicroelectronics STM32F407ZGT6 ARM Cortex-M4 MCU, LQFP-144 20x20mm")
 		(property "Reference" "U1" (at 0 -15) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
-		(property "Value" "ESP32-WROVER-B" (at 0 -13) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
-		(pad "1" smd rect (at -8.5 10) (size 1.5 0.9) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
-		(pad "2" smd rect (at -8.5 8.73) (size 1.5 0.9) (layers "F.Cu" "F.Paste" "F.Mask") (net 2 "3V3_SYS"))
-		(pad "38" smd rect (at 8.5 10) (size 1.5 0.9) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+		(property "Value" "STM32F407ZGT6" (at 0 -13) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
+		(pad "1" smd rect (at -10 10) (size 1.2 0.3) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
+		(pad "2" smd rect (at -10 9.5) (size 1.2 0.3) (layers "F.Cu" "F.Paste" "F.Mask") (net 2 "3V3_SYS"))
+		(pad "144" smd rect (at -9.5 10) (size 0.3 1.2) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "GND"))
 	)
 	(footprint "Connector_FFC-FPC:Hirose_FH12-31S-0.5SH_1x31-1MP_P0.50mm_Horizontal"
 		(layer "F.Cu")

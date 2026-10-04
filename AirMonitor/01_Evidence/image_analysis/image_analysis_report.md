@@ -14,11 +14,11 @@ This document records the visual extraction, geometric measurements, optical cha
 - **Physical Est. Dimensions**: ~64 mm × ~64 mm square PCB with radius on top-right corner.
 
 ### 2.2 Visual Features & Physical Landmarks
-1. **Microcontroller Module**:
-   - Marking: `ESP32-WROVER-B` (IDENTIFIED).
-   - Package: Surface-mount module with metal shield and PCB trace antenna overhang.
-   - Secondary Label: 2D DataMatrix code + MAC address text + regulatory text (`FCC ID: 2AC7Z-ESP32WROVERB`, `CMIIT ID: 2018DP3125`).
-   - Placement: Bottom edge, oriented horizontally, antenna projecting slightly beyond PCB edge for RF clearance.
+1. **Main Microcontroller**:
+   - Marking: `STM32F407ZGT6` (IDENTIFIED).
+   - Package: LQFP-144 high-density surface-mount package (20 mm × 20 mm).
+   - Architecture: ARM Cortex-M4 32-bit core @ 168 MHz with 1 MB Flash, 192 KB RAM.
+   - Placement: Central compute zone with multi-point ground plane ties and decoupling capacitors.
 2. **Interconnect Interfaces**:
    - **J1 (Display FPC Connector)**: 31-position 0.5 mm pitch bottom-contact FPC connector located at center-left. Pin 1 and Pin 31 silkscreen indicators observed.
    - **J2 (Touch/Sensor FPC Connector)**: ~6-position 0.5 mm pitch FPC connector located right of center.
@@ -30,11 +30,11 @@ This document records the visual extraction, geometric measurements, optical cha
    - Two SMD components nestled within a rectangular black elastomer/foam optical gasket. Characteristic of an ambient light sensor (phototransistor/I2C sensor) and IR proximity or LED indicator.
    - Red SMD component (LED or sensor element) adjacent to `TP18`.
 5. **Silkscreen Markings**:
-   - Primary board identifier: `DANY_JPU_MB_P1_ESP32_2022063?`
+   - Primary board identifier: `DANY_JPU_MB_P1_2022063?`
    - Date / batch code: `2604` (inferred manufacturing week 26 of 2020 or internal version).
 6. **Test Pad Inventory**:
    - 34 circular gold-plated test pads labeled `TP1` through `TP34`.
-   - Pads clustered around MCU programming lines (EN, IO0, TXD0, RXD0), power rails (VBUS, VBAT, 3V3, GND), and display/sensor control buses.
+   - Pads clustered around MCU programming lines (SWDIO, SWCLK, NRST, UART TX/RX), power rails (VBUS, VBAT, 3V3, GND), and display/sensor control buses.
 
 ---
 
@@ -108,7 +108,7 @@ This document records the visual extraction, geometric measurements, optical cha
 |   |                       |     |                        |   |
 |   |     FRONT DISPLAY     |     |       MAIN PCB         |   |
 |   |      (E004/E002)      |<===>|     (E001, Side A)     |   |
-|   |  31-Pin FPC Connector |     |  ESP32-WROVER-B + PMIC |   |
+|   |  31-Pin FPC Connector |     | STM32F407ZGT6 + PMIC  |   |
 |   |                       |     |                        |   |
 |   +-----------------------+     +------------------------+   |
 |                                             |                |

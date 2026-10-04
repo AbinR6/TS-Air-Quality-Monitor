@@ -24,5 +24,5 @@ The testing framework spans firmware unit tests, host-side packet and schema val
 
 ## 3. Test Execution Status
 - **Host Tools & Python Tests**: EXECUTED & VERIFIED (PASS).
-- **Firmware Compilation (ESP-IDF)**: PENDING ESP-IDF CROSS-COMPILER ON LOCAL HOST (Toolchain instructions defined in BUILD.md).
+- **Firmware Compilation (STM32 HAL / GCC)**: PENDING ARM CROSS-COMPILER ON LOCAL HOST (Toolchain instructions defined in BUILD.md).
 - **Target Hardware Flashing**: PENDING BENCH HARDWARE ACCESS (Target flashing procedures defined in BUILD.md).

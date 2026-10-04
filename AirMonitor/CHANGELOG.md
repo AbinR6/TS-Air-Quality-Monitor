@@ -13,22 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Hardware Design**:
   - Complete 4-layer KiCad schematic and PCB layout for the 64 mm × 64 mm main board.
   - Comprehensive Bill of Materials (BOM) in CSV and Markdown formats.
-  - Complete power tree architecture and pin assignment matrix for ESP32-WROVER-B.
+  - Complete power tree architecture and pin assignment matrix for STM32F407ZGT6.
   - High-precision thermal decoupling cutout for the SHT41 climate sensor.
-- **Firmware (ESP-IDF v5.3.2)**:
-  - Multi-tasking FreeRTOS architecture with core affinity separation.
+- **Firmware (STM32 HAL / Embedded C)**:
+  - Preemptive multi-tasking architecture with priority scheduling on ARM Cortex-M4 @ 168 MHz.
   - Hardware drivers: Plantower PMS5003 UART, Sensirion SCD41 I2C, Sensirion SHT41 I2C, ST7789 40MHz SPI display, and CST816S capacitive touch.
   - US EPA Air Quality Index (AQI) calculation engine and exponential moving average filter.
   - Graphical UI carousel: Boot, Main Dashboard, PM Detail, CO₂ Detail, Climate, and Diagnostics.
-  - 802.11 b/g/n Wi-Fi manager with exponential backoff and auto-reconnect.
-  - MQTT telemetry client (QoS 1) and local REST HTTP server (`/api/v1/metrics`, `/api/v1/status`).
-  - NVS flash key-value storage and offline circular telemetry ring buffer.
+  - Telemetry and communication manager with auto-reconnect and packet serialization.
+  - MQTT telemetry client and local REST service integration options.
+  - Flash non-volatile key-value storage and offline circular telemetry ring buffer.
 - **Software & Host Tools**:
   - Python-based virtual device simulator supporting 5 operational scenarios.
   - Telemetry receiver daemon with SQLite relational logging.
   - Packet schema analyzer and device provisioning utility.
 - **Mechanical & 3D CAD**:
-  - Mechanical enclosure CAD specification and 3D STL assets for PCB, display, sensor, and MCU.
+  - Mechanical enclosure CAD specification and 3D STL assets for PCB, display, sensor, and STM32F407 MCU.
 - **Documentation & Traceability**:
   - Comprehensive engineering documentation in `07_Documentation/`.
   - Requirements, hardware, firmware, software, and validation traceability matrices.
@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial KiCad schematic capture and component symbol mapping.
 - Power distribution network sizing and battery charging controller selection.
-- FreeRTOS task hierarchy definition and queue communication model.
+- Task hierarchy definition and queue communication model.
 
 ---
 

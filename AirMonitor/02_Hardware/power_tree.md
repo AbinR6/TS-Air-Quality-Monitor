@@ -37,10 +37,10 @@
       |                          |                          |                          |
       v                          v                          v                          v
 +---------------+          +---------------+          +---------------+          +---------------+
-| ESP32-WROVER-B|          | Display Panel |          | I2C Sensors   |          | Touch Flex    |
-| Core & Wi-Fi  |          | ST7789 + LED  |          | SCD41 + SHT41 |          | `DANY_TOUCH`  |
-| 3.3V @ 150mA  |          | 3.3V @ 45mA   |          | 3.3V @ 20mA   |          | 3.3V @ 3mA    |
-| (Peak 450mA)  |          | (PWM dimming) |          | (Peak 75mA)   |          |               |
+| STM32F407ZGT6 |          | Display Panel |          | I2C Sensors   |          | Touch Flex    |
+| Core & Periph |          | ST7789 + LED  |          | SCD41 + SHT41 |          | `DANY_TOUCH`  |
+| 3.3V @ 80mA   |          | 3.3V @ 45mA   |          | 3.3V @ 20mA   |          | 3.3V @ 3mA    |
+| (Peak 140mA)  |          | (PWM dimming) |          | (Peak 75mA)   |          |               |
 +---------------+          +---------------+          +---------------+          +---------------+
 ```
 
@@ -52,7 +52,7 @@
 |:---|:---|:---|:---|:---|:---|:---|
 | **VBUS** | 5.0 V | 4.5 V – 5.5 V | USB Type-C Receptacle (`J4`) | 1000 mA | 1500 mA | Battery charger, 5V PM sensor rail. |
 | **VBAT** | 3.7 V | 3.0 V – 4.2 V | 18650 Li-Ion Battery (`BAT1`) | 2000 mA | 3000 mA | Charger output, buck converter input. |
-| **3V3_SYS**| 3.30 V | 3.25 V – 3.35 V| Buck Converter (`U2`) | 1000 mA | 1500 mA | ESP32-WROVER-B, display logic, sensors, touch. |
+| **3V3_SYS**| 3.30 V | 3.25 V – 3.35 V| Buck Converter (`U2`) | 1000 mA | 1500 mA | STM32F407ZGT6, display logic, sensors, touch. |
 | **5V_SENS**| 5.0 V | 4.75 V – 5.25 V| VBUS / Synchronous Boost | 200 mA | 350 mA | Particulate matter sensor laser diode and fan. |
 | **LEDA** | 3.3 V | 3.0 V – 3.3 V | 3V3_SYS / Direct Boost | 60 mA | 80 mA | LCD backlight anode array. |
 
@@ -62,14 +62,15 @@
 
 | Operating Mode | Subsystem States | Average Current (3.3V) | Battery Life (2500mAh) |
 |:---|:---|:---|:---|
-| **Active Measurement (Display ON, Wi-Fi Transmitting)** | ESP32 Active (240MHz), Wi-Fi TX (QoS 1), Display 100%, Fan Running, SCD41 Sampling | 280 mA | ~8.9 Hours |
-| **Active Measurement (Display Dim, Wi-Fi Connected)** | ESP32 Active (160MHz), Wi-Fi DTIM3, Display 30%, PM Fan Duty 20s/60s, Sensors Active | 110 mA | ~22.7 Hours |
-| **Normal Periodic Logging (Display Idle/Off)** | ESP32 Modem-Sleep, Display Standby, Sensors periodic 60s duty cycle | 35 mA | ~71.4 Hours (~3 Days) |
-| **Low-Power Deep Sleep (Screen Off, Wi-Fi Off)** | ESP32 Deep-Sleep (RTC timer active), All sensors powered down | 1.8 mA | ~1380 Hours (~57 Days) |
+| **Active Measurement (Display ON, Full Speed)** | STM32 Active (168MHz), Display 100%, Fan Running, SCD41 Sampling | 180 mA | ~13.8 Hours |
+| **Active Measurement (Display Dim)** | STM32 Active (84MHz), Display 30%, PM Fan Duty 20s/60s, Sensors Active | 85 mA | ~29.4 Hours |
+| **Normal Periodic Logging (Display Idle/Off)** | STM32 Sleep Mode, Display Standby, Sensors periodic 60s duty cycle | 25 mA | ~100 Hours (~4.1 Days) |
+| **Low-Power Standby (Screen Off, Sensors Off)** | STM32 Stop/Standby (RTC active), All sensors powered down | 0.8 mA | >2500 Hours (>100 Days) |
 
 ---
 
 ## 4. Decoupling & Bulk Capacitance Strategy
-- **ESP32 Power Pins**: 10 µF ceramic (X5R/0805) bulk capacitor at module input pin, backed by 100 nF (X7R/0402) on every VDD pin to ground.
+- **STM32F407 Power Pins**: 100 nF ceramic (X7R/0402) decoupling capacitor on every VDD/VSS pin pair placed immediately adjacent to package pins, plus 4.7 µF bulk ceramic cap.
+- **VDDA / VSSA Analog Domain**: 100 nF ceramic cap in parallel with 1 µF ceramic, isolated via ferrite bead filter.
 - **Buck Output**: 22 µF low-ESR ceramic capacitor in parallel with 1 µF and 100 nF high-frequency bypass.
 - **PM Sensor Rail**: 47 µF electrolytic/tantalum capacitor at sensor harness connector to absorb motor starting inrush current spikes.

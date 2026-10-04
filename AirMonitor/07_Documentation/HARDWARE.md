@@ -1,16 +1,17 @@
 # Hardware Subsystem Specification
 
 ## 1. Overview
-The Air Monitor hardware comprises a 64 mm × 64 mm 4-layer printed circuit board integrating an Espressif ESP32-WROVER-B, high-efficiency power conversion, laser particulate sensing, optical carbon dioxide sensing, precision temperature/humidity sensing, an SPI color IPS display, and a capacitive touch slider.
+The Air Monitor hardware comprises a 64 mm × 64 mm 4-layer printed circuit board integrating an STMicroelectronics STM32F407ZGT6, high-efficiency power conversion, laser particulate sensing, optical carbon dioxide sensing, precision temperature/humidity sensing, an SPI color IPS display, and a capacitive touch slider.
 
 ---
 
 ## 2. Microcontroller & Memories
-- **Module**: Espressif ESP32-WROVER-B.
-- **Core**: Dual-core Tensilica Xtensa 32-bit LX6 running at 240 MHz.
-- **Embedded Flash**: 4 MB SPI flash operating at 80 MHz on dedicated internal bus (GPIO 6–11).
-- **Embedded PSRAM**: 8 MB pseudo-static RAM operating at 80 MHz on internal bus (GPIO 16–17).
-- **Antenna**: Integrated inverted-F PCB trace antenna with edge overhang clearance.
+- **MCU**: STMicroelectronics STM32F407ZGT6.
+- **Core**: ARM® 32-bit Cortex®-M4 CPU with FPU running at 168 MHz (210 DMIPS).
+- **Embedded Flash**: 1024 KB (1 MB) Flash memory.
+- **Embedded SRAM**: 192 KB total system SRAM (128 KB general SRAM + 64 KB CCM data RAM).
+- **Package**: LQFP-144 (20 mm × 20 mm, 0.5 mm pitch).
+- **Clocking**: 8 MHz / 25 MHz High-Speed External (HSE) crystal oscillator driving internal PLL to 168 MHz core clock.
 
 ---
 
@@ -23,7 +24,7 @@ The Air Monitor hardware comprises a 64 mm × 64 mm 4-layer printed circuit boar
 ---
 
 ## 4. Sensor Transducers
-- **PM Sensor (M1)**: Candidate Plantower PMS5003-compatible optical laser dust sensor communicating over UART2 (9600 baud) with dedicated active-high sleep control (`PM_SET`) and reset (`PM_RESET`).
+- **PM Sensor (M1)**: Candidate Plantower PMS5003-compatible optical laser dust sensor communicating over UART (9600 baud) with dedicated active-high sleep control (`PM_SET`) and reset (`PM_RESET`).
 - **CO₂ Sensor (M2)**: Candidate Sensirion SCD41 photoacoustic NDIR sensor on shared 400 kHz I²C bus (`0x62`).
 - **Climate Sensor (M3)**: Candidate Sensirion SHT41 precision temperature and humidity sensor on I²C bus (`0x44`), isolated on a slotted PCB corner.
 
@@ -31,7 +32,7 @@ The Air Monitor hardware comprises a 64 mm × 64 mm 4-layer printed circuit boar
 
 ## 5. User Interface & Display
 - **Display**: 2.1-inch color IPS TFT LCD (240 × 320 resolution) powered by Sitronix ST7789V driver, connected via 31-pin 0.5 mm pitch bottom-contact FPC connector (`J1`).
-- **Backlight**: Low-side N-channel MOSFET switch driven by ESP32 LEDC PWM timer at 5 kHz for flicker-free brightness dimming.
+- **Backlight**: Low-side N-channel MOSFET switch driven by STM32 Timer PWM output at 5 kHz for flicker-free brightness dimming.
 - **Capacitive Touch**: `DANY_TOUCH` top slider bar connected via 6-pin 0.5 mm pitch FPC connector (`J2`), supporting tap, swipe, and long-press gestures.
 
 ---

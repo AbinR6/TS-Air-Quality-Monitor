@@ -10,7 +10,7 @@ The Air Monitor enclosure is a desktop cubic form factor (~80 mm × 80 mm × 65 
 | Assembly Element | Physical Dimensions (W × H × D) | Material / Construction | Mounting Style | Associated 3D Asset |
 |:---|:---|:---|:---|:---|
 | **Main PCB** | 64.0 mm × 64.0 mm × 1.6 mm | 4-layer FR4, Matte Black Solder Mask | 3× M2 self-tapping screw bosses | [`air_monitor_pcb.stl`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/08_Models/air_monitor_pcb.stl) |
-| **ESP32-WROVER-B** | 18.0 mm × 31.4 mm × 3.3 mm | Nickel-plated brass shield, FR4 substrate | Surface mount soldered to Main PCB | [`esp32_wrover_b.stl`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/08_Models/esp32_wrover_b.stl) |
+| **STM32F407ZGT6** | 20.0 mm × 20.0 mm × 1.4 mm | Molded epoxy LQFP-144, copper leadframe | Surface mount soldered to Main PCB | [`stm32f407zgt6.stl`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/08_Models/stm32f407zgt6.stl) |
 | **PM Sensor (Plantower)** | 50.0 mm × 38.0 mm × 21.0 mm | Stamped aluminum casing with cooling ribs | Snapped into molded chassis bay | [`pm_sensor_module.stl`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/08_Models/pm_sensor_module.stl) |
 | **Display Subassembly**| 48.0 mm × 48.0 mm × 2.2 mm | Chemically strengthened glass + TFT panel | Double-sided die-cut acrylic foam tape | [`display_subassembly.stl`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/08_Models/display_subassembly.stl) |
 | **18650 Battery Cell**| Ø 18.2 mm × 65.0 mm | Steel cylindrical can, PVC shrink wrap | Snapped into base cradle with foam pads | `18650_battery_cell.stl` (Standard) |
@@ -36,7 +36,7 @@ The Air Monitor enclosure is a desktop cubic form factor (~80 mm × 80 mm × 65 
                    v                               v
     +-----------------------------+ +-----------------------------+
     |   Main PCB (Side A & B)     | |  Particulate Optical Chamber|
-    |   ESP32-WROVER-B + PMIC     | |  Air Intake / Exhaust Duct  |
+    |   STM32F407ZGT6 + PMIC      | |  Air Intake / Exhaust Duct  |
     +-----------------------------+ +-----------------------------+
                    \                               /
                     \                             /

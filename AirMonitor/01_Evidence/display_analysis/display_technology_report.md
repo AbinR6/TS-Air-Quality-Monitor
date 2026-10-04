@@ -35,10 +35,10 @@ The prevailing industry controllers for 31-pin small-format SPI/8-bit MCU displa
 | **3** | `LEDA` | Power | Backlight Anode (+3.3V or boost rail) | Connected to backlight LED string |
 | **4–7** | `LEDK1..4` | Power | Backlight Cathode return lines | Sinks to ground via PWM control transistor |
 | **8** | `VCI` / `VDD` | Power | Analog / Logic power supply (+3.3V) | Decoupled to GND via 1µF MLCC |
-| **9** | `IOVCC` | Power | Interface I/O voltage (+3.3V) | Matches ESP32 3.3V logic level |
-| **10** | `RESET` | Input | Display Hardware Reset (Active Low) | Driven by ESP32 GPIO |
-| **11** | `CS` | Input | SPI Chip Select (Active Low) | Driven by ESP32 GPIO |
-| **12** | `DC` / `RS` | Input | Data / Command Selection | Driven by ESP32 GPIO |
+| **9** | `IOVCC` | Power | Interface I/O voltage (+3.3V) | Matches MCU 3.3V logic level |
+| **10** | `RESET` | Input | Display Hardware Reset (Active Low) | Driven by STM32 GPIO |
+| **11** | `CS` | Input | SPI Chip Select (Active Low) | Driven by STM32 GPIO |
+| **12** | `DC` / `RS` | Input | Data / Command Selection | Driven by STM32 GPIO |
 | **13** | `SCL` | Input | SPI Serial Clock | High-speed SPI clock (up to 40 MHz) |
 | **14** | `SDA` / `MOSI`| Input | SPI Serial Data Input | High-speed SPI MOSI |
 | **15** | `SDO` / `MISO`| Output | SPI Serial Data Read (Optional) | Status and ID readback |

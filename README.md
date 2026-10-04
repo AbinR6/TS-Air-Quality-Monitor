@@ -25,7 +25,7 @@ An embedded environmental monitoring system engineered for continuous, real-time
 │   ├── 01_Evidence/            # Test and validation evidence
 │   ├── 02_Hardware/            # Schematic, PCB layouts, KiCad files, BOM
 │   ├── 03_Traceability/        # Requirements and traceability matrix
-│   ├── 04_Firmware/            # ESP-IDF / C modular FreeRTOS firmware
+│   ├── 04_Firmware/            # STM32 HAL / C modular firmware
 │   ├── 05_Software/            # Python provisioning, telemetry & inspection tools
 │   ├── 06_Tools/               # Analysis scripts and test utilities
 │   ├── 07_Documentation/       # Architecture, Calibration, Hardware, Firmware docs

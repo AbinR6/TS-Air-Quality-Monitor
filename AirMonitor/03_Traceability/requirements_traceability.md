@@ -15,9 +15,9 @@
 
 | Req ID | Description | Source / Rationale | Target Specification | Implementing Hardware | Verification Method | Status |
 |:---|:---|:---|:---|:---|:---|:---|
-| **REQ-HW-01** | Core Microcontroller Platform | E001 marking | Espressif ESP32-WROVER-B (240MHz, 8MB PSRAM)| `02_Hardware/kicad/air_monitor.kicad_sch` | Static pin/bus audit | VERIFIED (Structurally) |
+| **REQ-HW-01** | Core Microcontroller Platform | Physical chip marking | STMicroelectronics STM32F407ZGT6 (168MHz, 1MB Flash, 192KB SRAM)| `02_Hardware/kicad/air_monitor.kicad_sch` | Static pin/bus audit & device marking | CONFIRMED (Authoritative) |
 | **REQ-HW-02** | Battery Power & Portability | E003 battery observation | Single-cell 18650 Li-ion, >8 hours run time | `02_Hardware/power_tree.md`, `battery_monitor.c` | Power budget analysis | VERIFIED (Structurally) |
-| **REQ-HW-03** | USB-C External Charging & Flashing | E001/E003 port | 5V USB-C charging @ 500mA + UART flashing | `02_Hardware/kicad/air_monitor.kicad_sch` | Schematic review | VERIFIED (Structurally) |
+| **REQ-HW-03** | USB-C External Charging & SWD Debug | Hardware inspection | 5V USB-C charging @ 500mA + SWD / serial debug | `02_Hardware/kicad/air_monitor.kicad_sch` | Schematic review | VERIFIED (Structurally) |
 | **REQ-HW-04** | Display Visual Interface | E001 (J1), E004 | 2.1" 240×320 IPS LCD via 4-wire SPI (40MHz)| `components/drivers/src/display_st7789.c` | Framebuffer & SPI timing review | VERIFIED (Structurally) |
 | **REQ-HW-05** | Top Capacitive Touch Navigation | E001 (J2), E003 | Top slider with tap, swipe, long-press | `components/drivers/src/touch_cst816.c` | State machine unit tests | VERIFIED (Structurally) |
 

@@ -1,7 +1,7 @@
 # Hardware System Architecture
 
 ## 1. Overview
-The hardware system architecture for the Air Monitor integrates environmental particulate, optical CO₂, and climate sensors with an Espressif ESP32-WROVER-B core, a color TFT display, capacitive touch navigation, and a multi-source power management subsystem.
+The hardware system architecture for the Air Monitor integrates environmental particulate, optical CO₂, and climate sensors with an STMicroelectronics STM32F407ZGT6 ARM Cortex-M4 core, a color TFT display, capacitive touch navigation, and a multi-source power management subsystem.
 
 ---
 
@@ -12,18 +12,18 @@ The hardware system architecture for the Air Monitor integrates environmental pa
 |                                    AIR MONITOR SYSTEM ARCHITECTURE                                 |
 +----------------------------------------------------------------------------------------------------+
 
-   POWER DOMAIN                                              COMPUTE & WIRELESS DOMAIN
-   =============                                             =========================
+   POWER DOMAIN                                              COMPUTE DOMAIN
+   =============                                             ==============
   +------------------+
   | USB Type-C (5V)  |-----+
   +------------------+     |
                            v
   +------------------+  +--------------------+               +--------------------------------------+
-  | 18650 Li-Ion     |->| Charger & PowerPath|               |        ESP32-WROVER-B MODULE         |
-  | 3.7V / 2500 mAh  |  | (BQ24040 / MCP73831)               |  - Xtensa 32-bit Dual-Core LX6 240MHz|
-  +------------------+  +--------------------+               |  - 4 MB Flash (Internal GPIO 6-11)   |
-                           |                                 |  - 8 MB PSRAM (Internal GPIO 16-17)  |
-                           | (VBAT / VBUS)                   |  - Wi-Fi 802.11 b/g/n + BLE 4.2      |
+  | 18650 Li-Ion     |->| Charger & PowerPath|               |        STM32F407ZGT6 MCU             |
+  | 3.7V / 2500 mAh  |  | (BQ24040 / MCP73831)               |  - ARM 32-bit Cortex-M4 with FPU     |
+  +------------------+  +--------------------+               |  - 168 MHz Maximum Core Clock        |
+                           |                                 |  - 1 MB Flash / 192 KB SRAM          |
+                           | (VBAT / VBUS)                   |  - LQFP144 Package                   |
                            v                                 +--------------------------------------+
                         +--------------------+                                  |
                         | 3.3V Buck Regulator|----------------------------------+ (3.3V VDD_MCU)
@@ -60,10 +60,10 @@ The hardware system architecture for the Air Monitor integrates environmental pa
 ## 3. Physical & Environmental Partitioning
 
 1. **Airflow Isolation Tunnel**:
-   - The PM laser scattering chamber requires continuous air intake without thermal contamination from the ESP32 CPU or power converters.
+   - The PM laser scattering chamber requires continuous air intake without thermal contamination from the MCU or power converters.
    - The enclosure employs a molded baffle creating an isolated laminar flow channel from the exterior louvers through the PM sensor fan port and out the exhaust louvers.
 2. **Thermal Dissipation Zone**:
-   - The 3.3V buck regulator, battery charge IC, and ESP32 RF power amplifier are positioned along the lower and lateral edges of Side A, heatsinked through copper ground pours and thermal vias.
+   - The 3.3V buck regulator, battery charge IC, and power stages are positioned along the lower and lateral edges of Side A, heatsinked through copper ground pours and thermal vias.
    - The temperature and relative humidity sensor (SHT4x) is placed on the edge of the board in a dedicated PCB cutout (thermal relief slot) to prevent board conducted heat from biasing ambient readings.
-3. **RF Antenna Clearance**:
-   - The ESP32-WROVER-B PCB antenna overhangs the bottom edge of the PCB. All copper ground planes, power traces, and chassis metal are cleared in this 15 mm × 8 mm zone to ensure omnidirectional Wi-Fi/BLE radiation efficiency.
+3. **High-Speed Signal & PCB Routing Zone**:
+   - The STM32F407ZGT6 LQFP144 microcontroller is routed with dedicated ground return planes beneath high-speed SPI and clock lines, minimizing EMI to sensitive analog front-ends.

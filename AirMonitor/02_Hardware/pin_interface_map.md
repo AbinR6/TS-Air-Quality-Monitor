@@ -1,76 +1,67 @@
-# ESP32-WROVER-B Pin Allocation & Hardware Interface Map
+# STM32F407ZGT6 Pin Allocation & Hardware Interface Map
 
 ## 1. Overview
-The ESP32-WROVER-B module integrates an ESP32-D0WD core, a 4 MB SPI flash memory chip, and an 8 MB SPI PSRAM chip. Due to internal wiring within the module packaging, specific pins are strictly reserved and prohibited from external assignment.
+The primary system microcontroller is an **STM32F407ZGT6** manufactured by STMicroelectronics. It features an ARM 32-bit Cortex-M4 core with hardware Floating Point Unit (FPU), running at a maximum frequency of 168 MHz with 1 MB of on-chip Flash memory and 192 KB of SRAM in an LQFP-144 package.
 
 ---
 
-## 2. Silicon & Package Constraints
+## 2. Silicon & Package Architecture (LQFP-144)
 
-### 2.1 Strictly Reserved Internal Pins (DO NOT USE)
-- **GPIO 6 (CLK)**: Internal SPI Flash Clock
-- **GPIO 7 (SD0)**: Internal SPI Flash Data 0
-- **GPIO 8 (SD1)**: Internal SPI Flash Data 1
-- **GPIO 9 (SD2)**: Internal SPI Flash Data 2
-- **GPIO 10 (SD3)**: Internal SPI Flash Data 3
-- **GPIO 11 (CMD)**: Internal SPI Flash Command
-- **GPIO 16**: Connected internally to PSRAM Chip Select / Clock
-- **GPIO 17**: Connected internally to PSRAM Data
+### 2.1 Package Overview
+- **Device**: STM32F407ZGT6
+- **Package**: LQFP-144 (20.0 mm × 20.0 mm × 1.4 mm, 0.5 mm pitch, 144 pins)
+- **Core**: ARM 32-bit Cortex-M4 with FPU and Adaptive Real-Time (ART) Accelerator
+- **Operating Voltage**: 1.8 V to 3.6 V (Nominal system rail: 3.3 V)
+- **Operating Frequency**: Up to 168 MHz (HSE external crystal + Main PLL)
 
-### 2.2 Boot Strapping Pins (Observe State at Reset)
-- **GPIO 0**: High = Normal SPI Flash boot; Low = UART download bootloader mode. Pulled high via 10 kΩ resistor with user button bypass to GND.
-- **GPIO 2**: Must be floating or Low during UART flashing. Connected to ground or unasserted at boot.
-- **GPIO 5**: High at boot to select default SDIO timing. Internal weak pull-up.
-- **GPIO 12**: Controls VDD_SDIO voltage (0 = 3.3V, 1 = 1.8V). Must remain Low at boot to ensure 3.3V flash rail.
-- **GPIO 15**: Outputs PWM boot log if High. Pulled high.
-
-### 2.3 Input-Only Pins (GPI)
-- **GPIO 34**: Input only (No internal pull-up/pull-down capability). Used for `CHG_STAT`.
-- **GPIO 35**: Input only (No internal pull-up/pull-down capability). Used for `BAT_SENSE` (ADC1_CH7).
-- **GPIO 36 (SENSOR_VP)**: Input only. Uncommitted / external sensor input.
-- **GPIO 39 (SENSOR_VN)**: Input only. Uncommitted / external sensor input.
+### 2.2 Dedicated System & Control Pins (Confirmed)
+- **NRST (Pin 25)**: Active-low asynchronous hardware reset. Filtered with 100 nF MLCC to GND.
+- **BOOT0 (Pin 138)**: Boot mode selection pin. Pulled down to GND via 10 kΩ resistor for normal execution from main User Flash memory.
+- **PA13 / JTMS / SWDIO (Pin 105)**: Serial Wire Debug Data I/O. Dedicated hardware SWD debug port.
+- **PA14 / JTCK / SWCLK (Pin 109)**: Serial Wire Debug Clock. Dedicated hardware SWD debug clock.
+- **PH0 / OSC_IN (Pin 23)**: High-Speed External (HSE) crystal oscillator input (8 MHz or 25 MHz reference).
+- **PH1 / OSC_OUT (Pin 24)**: High-Speed External (HSE) crystal oscillator output.
+- **VDD / VSS (Multiple Pins)**: Decoupled with 100 nF ceramic capacitors adjacent to each pin pair.
+- **VDDA / VSSA (Pins 33/32)**: Analog supply and ground rails filtered with ferrite bead and decoupling caps for low ADC noise.
 
 ---
 
-## 3. Complete Pinout Matrix
+## 3. Peripheral Interface Mapping & Engineering Status
 
-| ESP32 Pin | Functional Name | Pad Type | Signal Assignment | Direction | Electrical Characteristics |
+> [!NOTE]
+> While the physical MCU package and part marking are authoritatively confirmed as **STM32F407ZGT6 (LQFP-144)**, specific GPIO pin breakout routes on the multi-layer PCB represent **Candidate / Pending Physical Trace Verification** allocations. In accordance with strict engineering standards, certainty is not fabricated where direct trace continuity measurements are pending.
+
+| Subsystem | Signal Name | STM32 Alternate Function | Candidate Pin (LQFP-144) | Electrical Characteristic | Status |
 |:---|:---|:---|:---|:---|:---|
-| **1** | `GND` | Ground | System Ground | Ground | 0V Reference plane |
-| **2** | `3V3` | Power | 3V3_SYS Logic Rail | Power | 3.3V Regulated (up to 500mA peak) |
-| **3** | `EN` | Input | Chip Enable / Reset | Input | 10k pull-up to 3V3 + 1µF MLCC to GND |
-| **4** | `SENSOR_VP` (IO36) | GPI | Uncommitted / TP1 | Input | Analog/Digital input |
-| **5** | `SENSOR_VN` (IO39) | GPI | Uncommitted / TP2 | Input | Analog/Digital input |
-| **6** | `IO34` | GPI | `CHG_STAT` | Input | Active-low battery charging indicator |
-| **7** | `IO35` | GPI | `BAT_SENSE` | Input (ADC1_CH7) | Resistor divider 1:2 from VBAT |
-| **8** | `IO32` | GPIO | `DISP_RST` | Output | Display hardware reset (Active Low) |
-| **9** | `IO33` | GPIO | `DISP_DC` | Output | Display Data / Command selector |
-| **10** | `IO25` | GPIO | `DISP_CS` | Output | Display SPI Chip Select (Active Low) |
-| **11** | `IO26` | GPIO | `DISP_SCLK` | Output | Display SPI Clock (40 MHz) |
-| **12** | `IO27` | GPIO | `DISP_MOSI` | Output | Display SPI Master-Out Slave-In |
-| **13** | `IO14` | GPIO | `DISP_BL_PWM` | Output (LEDC) | Backlight PWM control (5 kHz) |
-| **14** | `IO12` | GPIO | Strapping (MTDI) | Output | Boot strapping Low (3.3V Flash) |
-| **15** | `GND` | Ground | Ground Plane | Ground | 0V Reference |
-| **16** | `IO13` | GPIO | `TOUCH_INT` | Input (EXT_INT)| Capacitive touch interrupt |
-| **17** | `SD2` (IO9) | Internal | RESERVED FLASH | N/A | PROHIBITED (Internal Flash) |
-| **18** | `SD3` (IO10)| Internal | RESERVED FLASH | N/A | PROHIBITED (Internal Flash) |
-| **19** | `CMD` (IO11)| Internal | RESERVED FLASH | N/A | PROHIBITED (Internal Flash) |
-| **20** | `CLK` (IO6) | Internal | RESERVED FLASH | N/A | PROHIBITED (Internal Flash) |
-| **21** | `SD0` (IO7) | Internal | RESERVED FLASH | N/A | PROHIBITED (Internal Flash) |
-| **22** | `SD1` (IO8) | Internal | RESERVED FLASH | N/A | PROHIBITED (Internal Flash) |
-| **23** | `IO15` | GPIO | Strapping (MTDO) | Output | Pulled High at boot |
-| **24** | `IO2` | GPIO | Boot Strapping | Input/Output | Pulled Low at boot |
-| **25** | `IO0` | GPIO | `BOOT_KEY` / `PWR_BTN` | Input | Active-low boot select / power button |
-| **26** | `IO4` | GPIO | `TOUCH_RST` | Output | Touch controller hardware reset |
-| **27** | `IO16` | Internal | RESERVED PSRAM | N/A | PROHIBITED (Internal PSRAM) |
-| **28** | `IO17` | Internal | RESERVED PSRAM | N/A | PROHIBITED (Internal PSRAM) |
-| **29** | `IO5` | GPIO | `PM_RESET` | Output | Particulate sensor reset |
-| **30** | `IO18` | GPIO | `PM_UART_TX` | Output (UART2 TX)| Serial data to PM sensor |
-| **31** | `IO19` | GPIO | `PM_UART_RX` | Input (UART2 RX) | Serial data from PM sensor |
-| **32** | `GND` | Ground | Ground Plane | Ground | 0V Reference |
-| **33** | `IO21` | GPIO | `I2C_SDA` | Bidirectional | Shared I2C Data line (4.7k pull-up) |
-| **34** | `RXD0` (IO3) | GPIO | `UART0_RXD` | Input | Flashing & Console RX |
-| **35** | `TXD0` (IO1) | GPIO | `UART0_TXD` | Output | Flashing & Console TX |
-| **36** | `IO22` | GPIO | `I2C_SCL` | Bidirectional | Shared I2C Clock line (4.7k pull-up) |
-| **37** | `IO23` | GPIO | `PM_SET` | Output | Active-high sensor run/sleep control |
-| **38** | `GND` | Ground | Ground Plane | Ground | 0V Reference |
+| **Debug / ST-LINK** | `SWDIO` | SWD Data | PA13 (Pin 105) | 3.3V Logic, Pull-up | Confirmed |
+| **Debug / ST-LINK** | `SWCLK` | SWD Clock | PA14 (Pin 109) | 3.3V Logic, Pull-down | Confirmed |
+| **System Reset** | `NRST` | Master Reset | NRST (Pin 25) | Active-Low Filtered | Confirmed |
+| **Boot Mode** | `BOOT0` | Boot Strapping | BOOT0 (Pin 138) | Pull-Down to GND | Confirmed |
+| **Sensor I2C Bus** | `I2C_SCL` | I2C1_SCL | PB6 / PB8 | 3.3V Open-Drain, 4.7k Pull-up | Candidate / Pending Verification |
+| **Sensor I2C Bus** | `I2C_SDA` | I2C1_SDA | PB7 / PB9 | 3.3V Open-Drain, 4.7k Pull-up | Candidate / Pending Verification |
+| **Particulate Sensor** | `PM_UART_TX` | USART2_RX | PA3 / PD6 | 3.3V UART In (9600 Baud) | Candidate / Pending Verification |
+| **Particulate Sensor** | `PM_UART_RX` | USART2_TX | PA2 / PD5 | 3.3V UART Out (9600 Baud) | Candidate / Pending Verification |
+| **Particulate Sensor** | `PM_SET` | GPIO Output | PC4 / PD3 | 3.3V Push-Pull Active-High | Candidate / Pending Verification |
+| **Particulate Sensor** | `PM_RESET` | GPIO Output | PC5 / PD4 | 3.3V Push-Pull Active-Low | Candidate / Pending Verification |
+| **Display SPI Bus** | `DISP_SCK` | SPI1_SCK / SPI2_SCK | PA5 / PB13 | 3.3V SPI Clock (Up to 40 MHz) | Candidate / Pending Verification |
+| **Display SPI Bus** | `DISP_MOSI`| SPI1_MOSI / SPI2_MOSI| PA7 / PB15 | 3.3V SPI Data Out | Candidate / Pending Verification |
+| **Display Control** | `DISP_CS` | GPIO Output | PA4 / PB12 | 3.3V Active-Low Chip Select | Candidate / Pending Verification |
+| **Display Control** | `DISP_DC` | GPIO Output | PC1 / PE2 | 3.3V Data/Command Select | Candidate / Pending Verification |
+| **Display Control** | `DISP_RST` | GPIO Output | PC2 / PE3 | 3.3V Active-Low Reset | Candidate / Pending Verification |
+| **Display Backlight** | `DISP_BL` | TIMx_CHx PWM | PB0 / PB1 / PA8 | 3.3V Timer PWM (5 kHz) | Candidate / Pending Verification |
+| **Capacitive Touch** | `TOUCH_INT` | EXTI Line | PC0 / PE4 | 3.3V Edge-Triggered Interrupt | Candidate / Pending Verification |
+| **Capacitive Touch** | `TOUCH_RST` | GPIO Output | PC3 / PE5 | 3.3V Active-Low Reset | Candidate / Pending Verification |
+| **Power Telemetry** | `BAT_SENSE`| ADC1_INx | PA0 / PA1 (ADC1) | 0.0V–3.3V Resistor Divider | Candidate / Pending Verification |
+| **Power Telemetry** | `CHG_STAT` | GPIO Input | PB10 / PE6 | Active-Low Charger Status | Candidate / Pending Verification |
+| **User Pushbutton** | `PWR_KEY` | EXTI Line | PA0 (WKUP) / PE0 | Active-Low Button / Wakeup | Candidate / Pending Verification |
+
+---
+
+## 4. Bus Allocations & Contention Safeguards
+1. **I2C Sensor Bus Addressing**:
+   - `0x44`: Sensirion SHT41 (Temperature & Humidity)
+   - `0x62`: Sensirion SCD41 (Carbon Dioxide)
+   - `0x15`: CST816S Capacitive Touch Controller
+   All sensor slave addresses are mutually exclusive, operating at Fast-Mode (400 kHz).
+2. **SPI Display Bus**:
+   - High-throughput display rendering over dedicated SPI peripheral with DMA stream transfer.

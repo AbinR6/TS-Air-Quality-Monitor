@@ -45,8 +45,8 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "
 target_dir = os.path.join(BASE_DIR, "08_Models")
 os.makedirs(target_dir, exist_ok=True)
 
-# ESP32-WROVER-B: 18.0 mm x 31.4 mm x 3.3 mm
-create_box_stl(os.path.join(target_dir, "esp32_wrover_b.stl"), "ESP32_WROVER-B", 0, 0, 0, 18.0, 31.4, 3.3)
+# STM32F407ZGT6 (LQFP-144): 20.0 mm x 20.0 mm x 1.4 mm
+create_box_stl(os.path.join(target_dir, "stm32f407zgt6.stl"), "STM32F407ZGT6", 0, 0, 0, 20.0, 20.0, 1.4)
 
 # PM Sensor (Plantower style): 50.0 mm x 38.0 mm x 21.0 mm
 create_box_stl(os.path.join(target_dir, "pm_sensor_module.stl"), "PM_SENSOR_MODULE", 0, 0, 0, 50.0, 38.0, 21.0)
@@ -61,7 +61,7 @@ create_box_stl(os.path.join(target_dir, "display_subassembly.stl"), "DISPLAY_SUB
 hw_3d = os.path.join(BASE_DIR, "02_Hardware", "3d")
 os.makedirs(hw_3d, exist_ok=True)
 import shutil
-for fname in ["esp32_wrover_b.stl", "pm_sensor_module.stl", "air_monitor_pcb.stl", "display_subassembly.stl"]:
+for fname in ["stm32f407zgt6.stl", "pm_sensor_module.stl", "air_monitor_pcb.stl", "display_subassembly.stl"]:
     shutil.copy2(os.path.join(target_dir, fname), os.path.join(hw_3d, fname))
 
 print("Generated 3D STL models successfully.")

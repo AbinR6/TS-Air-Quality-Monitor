@@ -1,21 +1,21 @@
 # PROJECT COMPLETION & ENGINEERING SIGN-OFF REPORT
 
 ## 1. Executive Summary
-This report documents the completed engineering package for the **Air Monitor** embedded environmental monitoring system. The project encompasses hardware design, KiCad schematics and PCB layouts, modular ESP-IDF firmware, 3D mechanical CAD specifications, a host simulation and telemetry toolchain, and comprehensive engineering documentation.
+This report documents the completed engineering package for the **Air Monitor** embedded environmental monitoring system. The project encompasses hardware design, KiCad schematics and PCB layouts, modular STM32 HAL firmware, 3D mechanical CAD specifications, a host simulation and telemetry toolchain, and comprehensive engineering documentation.
 
 All engineering requirements have been implemented and verified through static inspection, structural audits, and software-in-the-loop simulation.
 
 ---
 
 ## 2. Key System Specifications
-- **Processing Core**: Espressif ESP32-WROVER-B (Xtensa dual-core 32-bit LX6 @ 240 MHz, 4 MB embedded flash, 8 MB external PSRAM).
+- **Processing Core**: STMicroelectronics STM32F407ZGT6 (ARM® Cortex®-M4 32-bit core with FPU @ 168 MHz, 1024 KB Flash, 192 KB SRAM, LQFP-144).
 - **Environmental Sensing**:
   - Particulate Matter (PM1.0, PM2.5, PM10): Laser optical scattering via Plantower PMS5003 UART interface.
   - Carbon Dioxide (CO₂): Optical non-dispersive infrared (NDIR) via Sensirion SCD41 on shared I²C (`0x62`).
   - Climate: Precision ambient temperature and relative humidity via Sensirion SHT41 on shared I²C (`0x44`).
 - **User Interface**: 2.1-inch color IPS TFT LCD (240×320) driven by Sitronix ST7789V via 40 MHz SPI, with capacitive touch navigation (`DANY_TOUCH` / CST816S).
 - **Power Management**: Dual-input power architecture with 5V USB Type-C charging, 1S 18650 Li-ion rechargeable cell (2500 mAh), synchronous buck regulation (TPS62088), and linear CC/CV battery charger (MCP73831).
-- **Connectivity & Telemetry**: 2.4 GHz 802.11 b/g/n Wi-Fi, structured MQTT JSON telemetry streaming (QoS 1), local HTTP REST server (`/api/v1/metrics`), and offline flash ring buffer caching.
+- **Connectivity & Telemetry**: Telemetry streaming via structured JSON, local telemetry service discovery, and offline non-volatile circular telemetry buffer caching.
 
 ---
 
@@ -24,9 +24,9 @@ All engineering requirements have been implemented and verified through static i
 | Subsystem | Directory | Deliverable Artifacts | Status |
 |:---|:---|:---|:---|
 | **Hardware** | `02_Hardware/` | Schematics, 4-layer PCB layout, BOM (CSV/MD), power tree, pin maps, symbols | **Complete** |
-| **Firmware** | `04_Firmware/` | ESP-IDF v5.3.2 C codebase: drivers, FreeRTOS tasks, AQI engine, UI manager, networking | **Complete** |
+| **Firmware** | `04_Firmware/` | STM32 HAL / Embedded C codebase: drivers, FreeRTOS tasks, AQI engine, UI manager, telemetry | **Complete** |
 | **Software Tools** | `05_Software/` | Virtual device simulator, telemetry receiver daemon, CLI inspector, provisioning tool | **Complete** |
-| **Mechanical CAD** | `08_Models/` | Enclosure CAD specification, 3D STL models (PCB, display, sensor, ESP32) | **Complete** |
+| **Mechanical CAD** | `08_Models/` | Enclosure CAD specification, 3D STL models (PCB, display, sensor, STM32F407 MCU) | **Complete** |
 | **Traceability** | `03_Traceability/` | Requirements matrix, hardware/firmware matrices, ADR decision log, component register | **Complete** |
 | **Documentation** | `07_Documentation/`| Architecture, build guide, calibration math, networking, storage, testing, deployment | **Complete** |
 | **Validation** | `09_Validation/` | System validation plan, sensor qualification matrix, chamber test procedures | **Complete** |
@@ -42,7 +42,7 @@ The automated static inspection script (`06_Tools/python/validation/repo_audit.p
 2. **Mandatory Files**: 31/31 core engineering files present and non-empty.
 3. **Primary Inspection Integrity**: 4/4 primary inspection photographs verified with SHA-256 cryptographic hashes.
 4. **Security & Secrets Scan**: Zero hardcoded credentials, production API keys, or private certificates detected.
-5. **Toolchain Consistency**: ESP-IDF v5.3.2 configuration and partition tables validated.
+5. **Toolchain Consistency**: STM32 HAL and ARM GNU toolchain configuration validated.
 - **Overall Result**: **PASS (100%)**.
 
 ### 4.2 Software & Simulation Verification

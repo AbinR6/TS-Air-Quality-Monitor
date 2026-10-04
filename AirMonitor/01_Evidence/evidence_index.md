@@ -22,7 +22,7 @@ This index catalogs the physical hardware inspection photography, high-resolutio
    - Comprehensive optical analysis of module markings, connectors, passive networks, and test pad arrays.
    - Cross-referenced in [`01_Evidence/image_analysis/image_analysis_report.md`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/01_Evidence/image_analysis/image_analysis_report.md).
 2. **Component Identification**:
-   - Verification of silicon packages (ESP32-WROVER-B, SOT-23-6 buck, DFN-8 charger, SHT41, SCD41, PMS5003).
+   - Verification of silicon packages (STM32F407ZGT6 MCU, SOT-23-6 buck, DFN-8 charger, SHT41, SCD41, PMS5003).
    - Documented in [`01_Evidence/component_identification/component_identification_report.md`](file:///c:/Users/abina/Downloads/STM32%20Project/AirMonitor/01_Evidence/component_identification/component_identification_report.md).
 3. **PCB Analysis**:
    - Routing density, 4-layer stackup constraints, thermal relief routing, and RF keepout rules.

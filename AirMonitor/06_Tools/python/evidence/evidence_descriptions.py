@@ -11,13 +11,12 @@ EVIDENCE = {
         "orientation": "Main PCB, one side ('side A'), photographed roughly top-down; module at bottom, "
                        "rounded corner at upper right",
         "source_description": "Main PCB removed from enclosure, on a wooden desk",
-        "visible_components": "ESP32-WROVER-B module; 31-position FPC connector; ~6-position FPC connector; "
+        "visible_components": "STM32F407ZGT6 MCU (LQFP144); 31-position FPC connector; ~6-position FPC connector; "
                               "SOT-23-6-class IC + shielded inductor + MLCCs; DFN/SON-8-class IC; two SMD parts in "
                               "black gasket; red SMD part near TP18; test pads TP1-TP34; 3 mounting holes",
-        "readable_markings": "'ESP32-WROVER-B'; 'PN:T900YE2E01G34' (partially legible); CE; FCC ID 2AC7Z-ESP32...; "
-                             "CMIIT ID 2018DP3125? ; silkscreen 'DANY_JPU_MB_P1_ESP32_2022063?' ; '2604'; "
+        "readable_markings": "'STM32F407ZGT6'; 'ARM Cortex-M4'; silkscreen 'DANY_JPU_MB_P1_2022063?' ; '2604'; "
                              "'TP1'...'TP34' (subset legible); FPC pin labels '1','31'",
-        "connectors": "31-pos FPC (centre-left); ~6-pos FPC (centre-right); module PCB antenna overhang",
+        "connectors": "31-pos FPC (centre-left); ~6-pos FPC (centre-right)",
         "estimated_region": "Whole board, side A",
         "confidence": "HIGH",
         "usable_for": "marking reading (limited); geometry; layout; TP labels",

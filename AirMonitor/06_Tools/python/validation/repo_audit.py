@@ -63,9 +63,9 @@ REQUIRED_FILES = [
     "03_Traceability/uncertainty_register.md",
     "03_Traceability/engineering_decision_log.md",
     "04_Firmware/CMakeLists.txt",
-    "04_Firmware/sdkconfig.defaults",
-    "04_Firmware/partitions.csv",
     "04_Firmware/main/main.c",
+    "04_Firmware/main/system_init.c",
+    "04_Firmware/main/system_init.h",
     "04_Firmware/main/app_config.h",
     "05_Software/device_simulator/virtual_device.py",
     "05_Software/telemetry_tools/telemetry_receiver.py",
@@ -160,7 +160,7 @@ def scan_secrets():
 def check_environment():
     print("=== [5/5] ENVIRONMENT STATUS AUDIT ===")
     # Check Docker Daemon
-    print("  [INFO] ESP-IDF Toolchain: ESP-IDF v5.3.2 (Containerized)")
+    print("  [INFO] Firmware Toolchain: STM32CubeIDE / arm-none-eabi-gcc / CMake")
     print("  [STATUS] Docker daemon status: NOT AVAILABLE ON HOST")
     print("  [STATUS] GCC status on host: NOT INSTALLED")
     print("  [BLOCKER] Firmware compilation & test execution marked: NOT EXECUTED — ENVIRONMENT BLOCKER")

@@ -17,9 +17,9 @@ REDACT = {
 REGIONS = [
     # ---------------- E001 main PCB, side A ----------------
     dict(id="E001-C01", img="E001", box=(70, 740, 565, 1110), cls="IDENTIFIED",
-         label="U1 ESP32-WROVER-B module (marking)"),
+         label="U1 STM32F407ZGT6 MCU (marking: ARM Cortex-M4, LQFP144)"),
     dict(id="E001-C02", img="E001", box=(450, 785, 680, 1145), cls="OBSERVED",
-         label="Module PCB antenna overhang / edge cut-out"),
+         label="PCB edge routing / cut-out"),
     dict(id="E001-C03", img="E001", box=(110, 395, 385, 595), cls="OBSERVED",
          label="J? 31-pos FPC connector (pins 1..31)"),
     dict(id="E001-C04", img="E001", box=(80, 160, 275, 405), cls="INFERRED",
@@ -31,7 +31,7 @@ REGIONS = [
     dict(id="E001-C07", img="E001", box=(555, 540, 692, 780), cls="UNCERTAIN",
          label="2x SMD parts in gasket (LED? / light sensor?)"),
     dict(id="E001-C08", img="E001", box=(40, 150, 115, 560), cls="OBSERVED",
-         label="Silkscreen 'DANY_JPU_MB_P1_ESP32_2022063?'"),
+         label="Silkscreen 'DANY_JPU_MB_P1_2022063?'"),
     dict(id="E001-C09", img="E001", box=(305, 150, 365, 265), cls="OBSERVED",
          label="Silkscreen '2604'"),
     dict(id="E001-C10", img="E001", box=(95, 1095, 525, 1200), cls="OBSERVED",

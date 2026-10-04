@@ -2,7 +2,7 @@
 """
 Virtual Device Simulator for Air Monitor.
 
-Simulates the ESP32-WROVER-B air monitor firmware pipeline,
+Simulates the STM32F407ZGT6 air monitor firmware pipeline,
 generating synthetic sensor telemetry according to realistic physics and
 operational scenarios (NORMAL, HIGH_PM, HIGH_CO2, SENSOR_FAULT, NETWORK_DROP).
 """

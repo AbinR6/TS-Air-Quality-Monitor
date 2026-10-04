@@ -12,7 +12,7 @@
 
 | Component RefDes | Subsystem | Description | Specification Source | Package / Marking | Selected / Candidate Part | Status | Confidence | Engineering Rationale / Notes |
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|
-| **U1** | Processing | Main Wi-Fi/BLE MCU Module | System Spec | `ESP32-WROVER-B` | Espressif ESP32-WROVER-B (4MB Flash, 8MB PSRAM) | Confirmed | Very High | Dual-core 240MHz, integrated antenna, 8MB PSRAM for graphics. |
+| **U1** | Processing | Main Microcontroller (ARM Cortex-M4) | System Spec | `STM32F407ZGT6` (LQFP144) | STMicroelectronics STM32F407ZGT6 (168 MHz, 1MB Flash, 192KB RAM) | Confirmed | Authoritative | ARM Cortex-M4 with FPU, 168 MHz, LQFP144, 1MB Flash, 192KB RAM. |
 | **U2** | Power | 3.3V Step-Down Synchronous Buck | Power Tree | Inductor `2R2`, SOT-23-6 | TI TPS62088 / Silergy SY8089 | Candidate | High | High-efficiency 1.5A buck regulator, 2.2µH shielded coil, MLCC filter. |
 | **U3** | Power | 1S Li-Ion Linear Battery Charger | Power Tree | DFN-8 / SOT-23-5 | Microchip MCP73831 / TI BQ24040 | Candidate | High | CC/CV single-cell lithium-ion charger programmed for 500mA USB charging. |
 | **BAT1**| Power | 18650 Li-Ion Rechargeable Cell | Power Tree | Cylindrical Cell | Standard 18650 3.7V 2500mAh Li-Ion | Standard | High | Internal energy storage providing >8 hours continuous cordless runtime. |

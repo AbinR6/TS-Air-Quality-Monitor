@@ -9,7 +9,7 @@ This matrix traces hardware components and physical specifications through to BO
 
 | RefDes | Requirement ID | Description | Schematic Symbol | PCB Footprint | 3D Model | Status | Confidence | Engineering Specification Notes |
 |:---|:---|:---|:---|:---|:---|:---|:---|:---|
-| **U1** | REQ-HW-01 | ESP32-WROVER-B MCU | `RF_Module:ESP32-WROVER-B` | `RF_Module:ESP32-WROVER-B` | `08_Models/esp32_wrover_b.stl` | Confirmed | Very High | Dual-core 240MHz, 4MB Flash, 8MB PSRAM |
+| **U1** | REQ-HW-01 | STM32F407ZGT6 MCU | `MCU_ST_STM32F4:STM32F407ZGTx` | `Package_QFP:LQFP-144_20x20mm_P0.5mm` | `08_Models/stm32f407zgt6.stl` | Confirmed | Authoritative | ARM Cortex-M4 168MHz, 1MB Flash, 192KB RAM, LQFP-144 |
 | **U2** | REQ-HW-02 | 3.3V Buck Regulator | `Power_Converter:TPS62088` | `Package_TO_SOT_SMD:SOT-23-6` | `02_Hardware/3d/sot23_6.stl` | Candidate | High | SOT-23-6 1.5A synchronous buck, 2.2µH coil |
 | **U3** | REQ-HW-03 | Li-Ion Linear Charger | `Battery_Management:MCP73831` | `Package_SO:DFN-8-1EP_2x2mm` | Standard DFN-8 | Candidate | High | 500mA CC/CV single-cell charging from USB |
 | **BAT1**| REQ-HW-02 | 18650 Li-Ion Cell | `Device:Battery_Cell` | Wire-lead pads / J3 | Standard 18650 Cylinder | Standard | High | 3.7V nominal, 2500mAh internal storage |

@@ -1,18 +1,26 @@
 # Hardware Component Identification & Technical Dossier
 
-## 1. Primary Processing Module (U1)
-- **Component Identifier**: ESP32-WROVER-B
-- **Manufacturer**: Espressif Systems
-- **Silicon Revision**: ESP32-D0WD (ECO V3)
-- **Physical Package**: SMT Module, 18.0 mm × 31.4 mm × 3.3 mm, 38 castellated pins.
-- **Module Markings & Compliance**:
-  - Top Line: `ESP32-WROVER-B`
-  - Regulatory: `CMIIT ID: 2018DP3125`, `FCC ID: 2AC7Z-ESP32WROVERB`, CE mark.
-  - Tracking Data: 2D DataMatrix barcode with MAC address identifier.
-- **Internal Architecture**:
-  - Embedded Flash: 4 MB (32 Mbit) SPI flash operating at 80 MHz on internal bus (GPIO 6–11).
-  - Embedded PSRAM: 8 MB (64 Mbit) SPI pseudo-static RAM operating at 80 MHz on internal bus (GPIO 16–17).
-  - Clocking: 40 MHz integrated crystal oscillator.
+## 1. Primary Processing Microcontroller (U1)
+- **Component Identifier**: STM32F407ZGT6
+- **Manufacturer**: STMicroelectronics
+- **Core Architecture**: ARM 32-bit Cortex-M4 with FPU (Floating Point Unit) and Adaptive Real-Time (ART) Accelerator
+- **Clock Speed**: 168 MHz maximum operating frequency
+- **Physical Package**: LQFP144 (20.0 mm × 20.0 mm × 1.4 mm, 0.5 mm pin pitch)
+- **Authoritative Device Markings**:
+  - Device: `STM32F407ZGT6`
+  - Core: ARM Cortex-M4
+  - Memory: 1 MB Flash / 192 KB RAM
+  - Clock: 168 MHz
+  - Package: LQFP144
+- **Internal Memory Architecture**:
+  - Embedded Flash Memory: 1 MB (1024 KB) on-chip Flash
+  - Embedded SRAM: 192 KB on-chip SRAM (including 128 KB system SRAM, 64 KB CCM core coupled data RAM)
+  - Clocking: 168 MHz SYSCLK via HSE crystal oscillator and main PLL
+- **Integrated Peripherals**:
+  - Communication: Multiple USART, UART, I²C, SPI, USB OTG, CAN, and Ethernet MAC interfaces
+  - Analog: 3× 12-bit ADCs (up to 2.4 MSPS), 2× 12-bit DACs
+  - Timers: 14 timers (advanced PWM, general-purpose 16-bit and 32-bit, watchdog, SysTick)
+  - DMA: 2× 8-stream general-purpose DMA controllers with FIFO support
 
 ---
 
@@ -40,7 +48,7 @@
 - **Operating Parameters**:
   - Charge Current: Programmed via PROG resistor to 500 mA (USB standard compliant).
   - Float Voltage: 4.20V ± 0.5%.
-  - Status Indicators: Open-drain `CHG` output routed to ESP32 GPIO for charging telemetry.
+  - Status Indicators: Open-drain `CHG` output routed to MCU GPIO for charging telemetry.
 
 ---
 
@@ -80,5 +88,5 @@
 ### 4.2 Capacitive Touch Strip (TOUCH1)
 - **Description**: Polyimide capacitive slider flex with silkscreen identifier `DANY_TOUCH`.
 - **Controller**: Hynitron CST816S or discrete capacitive sensing array.
-- **Interface**: I²C bus with active-low discrete interrupt line (`TOUCH_INT`, GPIO 13).
+- **Interface**: I²C bus with active-low discrete interrupt line (`TOUCH_INT`, pending pin verification).
 - **Supported Gestures**: Single tap, horizontal swipe left, horizontal swipe right, long press (>5s).

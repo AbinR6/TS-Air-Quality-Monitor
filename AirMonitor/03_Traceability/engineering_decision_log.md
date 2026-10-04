@@ -7,11 +7,11 @@ This log documents key engineering decisions, architectural trade-offs, and desi
 
 ## 2. Architectural Decision Records (ADRs)
 
-### ADR-01: Microcontroller Selection — Espressif ESP32-WROVER-B
-- **Status**: ACCEPTED
-- **Context**: The device requires high compute performance for real-time sensor processing, native Wi-Fi/BLE connectivity, and substantial RAM for driving a 240×320 color TFT display without memory starvation.
-- **Decision**: Select the Espressif ESP32-WROVER-B module (Tensilica Xtensa dual-core LX6 @ 240 MHz with 4 MB embedded flash and 8 MB embedded PSRAM). Respect the internal SPI flash (GPIO 6–11) and PSRAM (GPIO 16–17) bus reservation constraints.
-- **Consequences**: Provides ample RAM for display double-buffering, FreeRTOS multi-tasking, network TLS stacks, and offline telemetry buffering. Precludes assigning GPIO 6–11 or 16–17 to external sensors.
+### ADR-01: Microcontroller Selection — STMicroelectronics STM32F407ZGT6
+- **Status**: ACCEPTED (Authoritative Physical Chip Identification)
+- **Context**: The device requires high compute performance for real-time sensor processing, precision hardware timers, hardware floating-point acceleration for AQI calculation, and rich serial buses (USART, I2C, SPI) in a high-density package.
+- **Decision**: Authoritatively establish the STMicroelectronics STM32F407ZGT6 microcontroller based on physical chip markings (ARM 32-bit Cortex-M4 with FPU @ 168 MHz, 1 MB on-chip Flash, 192 KB SRAM, LQFP-144 package).
+- **Consequences**: Delivers 210 DMIPS compute performance, hardware single-precision FPU, dual DMA controllers for zero-overhead peripheral transfers, and expansive internal memory for real-time sensor filtering, display frame buffering, and system diagnostics without requiring external PSRAM.
 
 ### ADR-02: Sensor Hardware Abstraction Layer (HAL)
 - **Status**: ACCEPTED
@@ -27,29 +27,29 @@ This log documents key engineering decisions, architectural trade-offs, and desi
 
 ### ADR-04: FreeRTOS Preemptive Task Architecture & Queue Decoupling
 - **Status**: ACCEPTED
-- **Context**: The monitor must sample sensors at precise intervals, maintain smooth 30+ FPS UI refresh, and handle asynchronous Wi-Fi/MQTT transmissions without blocking.
-- **Decision**: Separate concerns into five dedicated FreeRTOS tasks communicating via thread-safe queues and event groups:
-  1. `sensor_task` (Core 1, Priority 5, period 1000ms): Polls I2C/UART sensors.
-  2. `pipeline_task` (Core 1, Priority 5): Applies calibration, rolling averages, and AQI computation.
-  3. `ui_task` (Core 0, Priority 4, period 33ms): Renders display screens and handles touch events.
-  4. `telemetry_task` (Core 0, Priority 3): Handles Wi-Fi connection, MQTT publishing, and HTTP requests.
-  5. `power_task` (Core 0, Priority 1, period 5000ms): Monitors battery ADC and manages power states.
-- **Consequences**: Completely eliminates network latency (DNS, TLS handshakes, retransmissions) from stalling sensor sampling or causing display frame drops.
+- **Context**: The monitor must sample sensors at precise intervals, maintain smooth UI refresh, and handle asynchronous serial communications without blocking.
+- **Decision**: Separate concerns into dedicated FreeRTOS tasks communicating via thread-safe queues:
+  1. `sensor_task` (Priority 3, period 1000ms): Polls I2C/UART sensors.
+  2. `pipeline_task` (Priority 3): Applies calibration, rolling averages, and AQI computation.
+  3. `ui_task` (Priority 2, period 33ms): Renders display screens and handles touch events.
+  4. `telemetry_task` (Priority 2): Handles serial/network telemetry output.
+  5. `power_task` (Priority 1, period 5000ms): Monitors battery ADC and manages power states.
+- **Consequences**: Guarantees deterministic sensor acquisition and smooth display interaction on the ARM Cortex-M4 single-core scheduler.
 
-### ADR-05: Non-Volatile Storage (NVS) & Telemetry Ring Buffer
+### ADR-05: Non-Volatile Parameter Storage & Telemetry Ring Buffer
 - **Status**: ACCEPTED
-- **Context**: The device requires persistence for user settings, Wi-Fi credentials, and sensor calibration constants, as well as preserving data during network outages.
-- **Decision**: Utilize the ESP-IDF NVS key-value store for structured configuration parameters, coupled with a dedicated flash sector circular buffer for queuing telemetry records during Wi-Fi disconnects.
-- **Consequences**: Ensures zero data loss during temporary network outages while guaranteeing wear-leveling across SPI flash sectors.
+- **Context**: The device requires persistence for user settings, operational thresholds, and sensor calibration constants, as well as preserving data during communication dropouts.
+- **Decision**: Utilize on-chip Flash sectors / EEPROM emulation for structured configuration parameters, coupled with a circular buffer for queuing telemetry records.
+- **Consequences**: Ensures zero data loss during communication outages while providing reliable configuration retention.
 
-### ADR-06: Telemetry Data Model & MQTT Schema
+### ADR-06: Telemetry Data Model & Serial/MQTT Schema
 - **Status**: ACCEPTED
-- **Context**: Telemetry must easily integrate into modern smart home and industrial IoT platforms.
-- **Decision**: Adopt a standardized JSON telemetry schema published to topic `devices/{device_id}/telemetry` containing timestamp, PM concentrations (PM1.0, PM2.5, PM10), CO₂, temperature, humidity, battery percentage, network RSSI, and sensor health flags.
-- **Consequences**: Enables seamless integration with open-source IoT platforms (Home Assistant, Mosquitto, InfluxDB, Grafana) without proprietary protocols.
+- **Context**: Telemetry must easily integrate into modern monitoring and IoT platforms.
+- **Decision**: Adopt a standardized JSON telemetry schema containing timestamp, PM concentrations (PM1.0, PM2.5, PM10), CO₂, temperature, humidity, battery percentage, and sensor health flags.
+- **Consequences**: Enables seamless integration with open-source IoT platforms without proprietary protocols.
 
 ### ADR-07: Deterministic Host Simulation & Validation Layer
 - **Status**: ACCEPTED
-- **Context**: CI/CD pipelines, automated testing, and software integration need to run without requiring connected physical hardware on every developer workstation.
-- **Decision**: Provide a standalone Python device simulator (`05_Software/device_simulator/virtual_device.py`) that emulates the ESP32 state machine, generating synthetic sensor data under defined operational scenarios (NORMAL, HIGH_PM, HIGH_CO2, SENSOR_FAULT, NETWORK_DROP).
-- **Consequences**: Enables immediate, deterministic automated testing of telemetry ingestion, database storage, and dashboard visualization on standard host workstations.
+- **Context**: Automated testing and software integration need to run without requiring connected physical hardware on every developer workstation.
+- **Decision**: Provide a standalone Python device simulator (`05_Software/device_simulator/virtual_device.py`) that emulates the STM32F407ZGT6 firmware state machine, generating synthetic sensor data under defined operational scenarios (NORMAL, HIGH_PM, HIGH_CO2, SENSOR_FAULT, NETWORK_DROP).
+- **Consequences**: Enables immediate, deterministic automated testing of telemetry ingestion and dashboard visualization on standard host workstations.

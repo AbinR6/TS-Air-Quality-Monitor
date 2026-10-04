@@ -6,9 +6,9 @@ Thank you for contributing to the Air Monitor embedded engineering project. We w
 
 ## 1. Development Guidelines
 
-### 1.1 Firmware (ESP-IDF)
-- Firmware code is written in ANSI C targeting **ESP-IDF v5.3.2**.
-- Follow the ESP-IDF coding style (4-space indentation, lower_snake_case for functions and variables, UPPER_SNAKE_CASE for macros and constants).
+### 1.1 Firmware (STM32 HAL / Embedded C)
+- Firmware code is written in ANSI C targeting the **STM32F407ZGT6** microcontroller using the **STM32 HAL** / **STM32Cube** framework.
+- Follow consistent embedded C coding conventions (4-space indentation, `lower_snake_case` for functions and variables, `UPPER_SNAKE_CASE` for macros and constants).
 - Keep hardware drivers isolated behind standard hardware abstraction interfaces in `04_Firmware/components/drivers/include/`.
 - Ensure all public functions have descriptive Doxygen headers.
 - Never perform blocking calls or heap allocations inside interrupt service routines (ISRs).

@@ -11,12 +11,12 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
-# ESP-IDF
+# Firmware Build Artifacts
 04_Firmware/build/
-04_Firmware/sdkconfig
-04_Firmware/sdkconfig.old
-04_Firmware/managed_components/
-04_Firmware/dependencies.lock
+04_Firmware/*.bin
+04_Firmware/*.elf
+04_Firmware/*.hex
+04_Firmware/*.map
 
 # KiCad
 02_Hardware/kicad/*-backups/

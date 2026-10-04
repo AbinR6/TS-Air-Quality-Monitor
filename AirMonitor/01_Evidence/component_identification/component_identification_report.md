@@ -1,35 +1,37 @@
 # Component Identification & Optical Verification Report
 
 ## 1. Scope
-This document details the forensic optical identification of all integrated circuits, modules, connectors, and discrete elements observed on the Air Monitor hardware. Every identification is assigned an explicit confidence score and evidence status.
+This document details the optical identification of all integrated circuits, modules, connectors, and discrete elements observed on the Air Monitor hardware. Every identification is assigned an explicit confidence score and evidence status.
 
 ---
 
-## 2. Microcontroller & Wireless Subsystem
+## 2. Main Microcontroller
 
-### U1: ESP32-WROVER-B Module
-- **Evidence Reference**: E001 (ROI C01), E004
+### U1: STM32F407ZGT6 High-Performance ARM Cortex-M4 MCU
+- **Evidence Reference**: E001 (Main PCB IC U1), E004
 - **Visible Markings**:
   ```text
-  ESP32-WROVER-B
-  CMIIT ID: 2018DP3125
-  FCC ID: 2AC7Z-ESP32WROVERB
+  STM32F407
+  ZGT6
+  ARM / STMicroelectronics
   ```
 - **Observed Characteristics**:
-  - Castellated 38-pin surface-mount module footprint.
-  - Integrated PCB inverted-F antenna (MIFA) protruding over board edge.
-  - RF shielding can with manufacturer laser engraving and 2D barcode label.
-- **Documented Specification** (Espressif Systems):
-  - Core: Xtensa® Dual-Core 32-bit LX6 microprocessor up to 240 MHz.
-  - Flash Memory: 4 MB SPI flash integrated inside module.
-  - PSRAM: 8 MB SPI pseudo-static RAM integrated inside module.
-  - Connectivity: 802.11 b/g/n Wi-Fi (up to 150 Mbps) + Bluetooth v4.2 BR/EDR and BLE.
-- **Hardware Constraints**:
-  - Flash Bus: GPIO 6, 7, 8, 9, 10, 11 are reserved internally for flash. MUST NOT BE ACCESSED.
-  - PSRAM Bus: GPIO 16 and 17 are reserved internally for PSRAM clock/chip select. MUST NOT BE ACCESSED.
-  - Strapping Pins: GPIO 0, 2, 5, 12, 15 have boot-strap pull-up/down requirements.
-  - Input-Only Pins: GPIO 34, 35, 36 (SENSOR_VP), 39 (SENSOR_VN) lack internal pull-up/down and output driver capability.
-- **Status**: IDENTIFIED (CONFIDENCE: VERY HIGH).
+  - Package: LQFP-144 (20 mm × 20 mm, 0.5 mm pin pitch).
+  - High-density multi-layer surface mount footprint.
+  - Dedicated decoupling capacitor cluster adjacent to VDD/VSS pin pairs.
+- **Authoritative Specification** (STMicroelectronics):
+  - Core: ARM® 32-bit Cortex®-M4 CPU with FPU (Floating Point Unit).
+  - Maximum Clock Frequency: 168 MHz (210 DMIPS / 1.25 DMIPS/MHz).
+  - Flash Memory: 1024 KB (1 MB) embedded Flash.
+  - SRAM: 192 KB total system SRAM (128 KB general SRAM + 64 KB CCM core coupled data RAM).
+  - Package: LQFP-144.
+  - Operating Voltage: 1.8V to 3.6V (standard 3.3V system rail).
+  - Peripherals: Up to 3x I2C, 4x USART, 2x UART, 3x SPI, 2x CAN, USB OTG FS/HS, 3x 12-bit ADC (24 channels), 2x 12-bit DAC, 17 timers.
+- **Hardware Architecture Constraints**:
+  - System Clock: Driven by 8 MHz or 25 MHz High-Speed External (HSE) crystal oscillator multiplied via internal PLL to 168 MHz.
+  - Debug Interface: Serial Wire Debug (SWD) via PA13 (SWDIO) and PA14 (SWCLK).
+  - Boot Configuration: BOOT0 pull-down to ground for standard Flash memory execution.
+- **Status**: IDENTIFIED / AUTHORITATIVE (CONFIDENCE: DEFINITIVE).
 
 ---
 
@@ -46,7 +48,7 @@ This document details the forensic optical identification of all integrated circ
   - TI TPS62088 / TPS62203, Silergy SY8089, Monolithic Power Systems MP2122.
 - **Operating Parameters**:
   - Input: 3.0V – 5.5V (Battery / USB VBUS).
-  - Output: 3.30V ± 1.5%, up to 1.5A peak current to satisfy ESP32 Wi-Fi RF transmission bursts (peaks of ~450 mA).
+  - Output: 3.30V ± 1.5%, up to 1.5A peak current to satisfy STM32F407 core execution, sensor active sampling bursts, and LCD backlight power.
 - **Status**: INFERRED / CANDIDATE (CONFIDENCE: HIGH).
 
 ### U3: Li-Ion Battery Charge Controller
@@ -95,7 +97,7 @@ This document details the forensic optical identification of all integrated circ
 ### TOUCH1: Capacitive Touch Bar
 - **Evidence Reference**: E001 (J2), E003
 - **Marking**: `DANY_TOUCH` silkscreen on amber polyimide flex.
-- **Controller**: Ultra-low power capacitive touch sensor (e.g. CST816S, Azoteq IQS263, or native ESP32 capacitive touch sensing on `TOUCH0`–`TOUCH9`).
+- **Controller**: Ultra-low power capacitive touch sensor or controller interface to STM32 I/O.
 - **Status**: INFERRED / CANDIDATE (CONFIDENCE: HIGH).
 
 ---
@@ -104,7 +106,7 @@ This document details the forensic optical identification of all integrated circ
 
 | RefDes | Subsystem | Identified Part / Candidate | Evidence ID | Status | Confidence |
 |:---|:---|:---|:---|:---|:---|
-| **U1** | MCU / RF | Espressif ESP32-WROVER-B | E001, E004 | IDENTIFIED | VERY HIGH |
+| **U1** | MCU | STM32F407ZGT6 (ARM Cortex-M4, 168MHz) | E001, E004 | IDENTIFIED / AUTHORITATIVE | DEFINITIVE |
 | **U2** | Power | Synchronous Buck 3.3V (TPS62088 / SY8089) | E001 | INFERRED / CANDIDATE | HIGH |
 | **U3** | Power | Li-ion Charger (BQ24040 / MCP73831) | E001 | INFERRED / CANDIDATE | HIGH |
 | **BAT1** | Power | 18650 Li-Ion Cell 3.7V ~2500mAh | E003 | OBSERVED / CANDIDATE | HIGH |

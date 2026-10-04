@@ -8,7 +8,7 @@
 - **Mounting Holes**: Three plated mounting holes (diameter 2.2 mm for M2 self-tapping screws) located along perimeter margins, positioned to avoid high-voltage/RF keepout zones.
 
 ### 1.2 Layer Stackup Specification
-Based on the high component density, mixed-signal routing (40 MHz SPI display bus, 400 kHz I2C sensor bus, 2.4 GHz RF), and 3.3V power distribution requirements, a 4-layer FR4 stackup is specified:
+Based on the high component density, mixed-signal routing (40 MHz SPI display bus, 400 kHz I2C sensor bus, high-speed MCU signals), and 3.3V power distribution requirements, a 4-layer FR4 stackup is specified:
 - **Layer 1 (Top / Component Side)**: High-speed signal traces (SPI, I2C, UART), discrete passives, IC breakouts, local ground islands.
 - **Layer 2 (Internal Ground Plane)**: Unbroken continuous 0V copper ground reference plane providing low-impedance return paths and EMI shielding.
 - **Layer 3 (Internal Power Plane)**: Split power plane allocating 3V3_SYS copper flood, VBAT distribution, and 5V sensor power tracks.
@@ -19,7 +19,7 @@ Based on the high component density, mixed-signal routing (40 MHz SPI display bu
 ## 2. Thermal Management & Environmental Isolation
 
 ### 2.1 Sensor Thermal Decoupling Slot
-In precision air quality monitors, thermal dissipation from microcontrollers (ESP32 active RF dissipation ~0.5W–1.0W) and power converters conducts through PCB copper, artificially elevating temperature and depressing relative humidity readings.
+In precision air quality monitors, thermal dissipation from microcontrollers (STM32F407 core active dissipation ~0.2W–0.4W) and power converters conducts through PCB copper, artificially elevating temperature and depressing relative humidity readings.
 - **Design Implementation**: A routed mechanical slot (1.0 mm width × 15.0 mm length) isolates the SHT41 temperature/humidity transducer pad from the central ground plane, creating a thermal barrier with high thermal resistance (>120 K/W).
 
 ### 2.2 Particulate Matter Optical Chamber Airflow
@@ -28,18 +28,19 @@ The particulate matter sensor utilizes an internal brushless centrifugal fan to 
 
 ---
 
-## 3. Radio Frequency (RF) Engineering Principles
+## 3. High-Speed Microcontroller Routing & Signal Integrity
 
-### 3.1 Antenna Overhang & Ground Keepout
-The ceramic/PCB trace antenna portion of the ESP32-WROVER-B module protrudes past the bottom edge of the PCB.
-- **Rule**: A minimum clearance zone of 15 mm × 8 mm beneath and around the antenna is completely free of copper planes, traces, vias, chassis metal, and battery wiring. This preserves antenna radiation efficiency (>65%) and minimizes VSWR distortion.
+### 3.1 Clock & High-Speed Traces
+The STM32F407ZGT6 operates at core frequencies up to 168 MHz with high-speed peripherals.
+- **Clock Layout**: The external crystal oscillator (HSE) is placed immediately adjacent to the OSC_IN and OSC_OUT pins, surrounded by a local ground guard ring to suppress parasitic coupling and jitter.
+- **Decoupling**: Ceramic bypass capacitors (100 nF MLCCs) are placed directly at each VDD/VSS pin pair of the LQFP-144 package to maintain supply rail integrity during fast switching transients.
 
 ---
 
 ## 4. Test Pad (TP) Matrix & In-Circuit Test (ICT) Allocation
 
 Silkscreen markings on Side A designate 34 circular gold test pads (`TP1` through `TP34`):
-- **TP1–TP4**: Programming & Boot (`EN`, `IO0`, `TXD0`, `RXD0`).
+- **TP1–TP4**: Programming & Debug (`SWDIO`, `SWCLK`, `NRST`, `USART_TX`) [Candidate allocation].
 - **TP5–TP8**: Primary Power Rails (`VBUS`, `VBAT`, `3V3_SYS`, `GND`).
 - **TP9–TP12**: Display Bus Taps (`DISP_SCLK`, `DISP_MOSI`, `DISP_CS`, `DISP_DC`).
 - **TP13–TP16**: I2C Bus & Touch (`I2C_SDA`, `I2C_SCL`, `TOUCH_INT`, `TOUCH_RST`).

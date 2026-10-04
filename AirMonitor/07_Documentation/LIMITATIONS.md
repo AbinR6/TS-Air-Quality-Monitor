@@ -22,21 +22,21 @@
 ### 2.1 Battery Run-Time Limits
 - **Cell Capacity**: Single 18650 Lithium-Ion cell (3.7V nominal, 2500 mAh / 9.25 Wh).
 - **Run-time Budget**:
-  - Full Active Mode (Wi-Fi connected, LCD 100% brightness, continuous PM fan): ~5.5 hours.
-  - Standard Eco Mode (Modem sleep between 60s reporting intervals, 60% LCD brightness): ~8.5 hours.
-  - Screen Off / Deep Sleep: >72 hours.
-- **Charging Rate**: USB-C charge controller is fixed to 500 mA (MCP73831) to guarantee compatibility with all standard USB 2.0 host ports and power bricks, requiring ~5 hours for a 0–100% full recharge.
+  - Full Active Mode (STM32 core active 168 MHz, LCD 100% brightness, continuous PM fan): ~6.5 hours.
+  - Standard Eco Mode (Periodic sensor sleep, 60% LCD brightness): ~10.5 hours.
+  - Low-Power / Stop Mode: >96 hours.
+- **Charging Rate**: USB-C charge controller is fixed to 500 mA (MCP73831 / candidate charger) to guarantee compatibility with all standard USB 2.0 host ports and power bricks, requiring ~5 hours for a 0–100% full recharge.
 
 ### 2.2 SPI Display Refresh Ceiling
-- **Display Bus Clock**: Pinned to 40 MHz.
-- **Frame Rate Limit**: Full-screen 240 × 320 RGB565 buffer transfers take approximately 30.7 ms, capping theoretical maximum refresh at ~32.5 FPS. This is ideal for animated UI graphs and gauges without impacting Core 1 sensor polling.
+- **Display Bus Clock**: Up to 40 MHz SPI clock.
+- **Frame Rate Limit**: Full-screen 240 × 320 RGB565 buffer transfers take approximately 30.7 ms, capping theoretical maximum refresh at ~32.5 FPS. This is ideal for animated UI graphs and gauges without impacting real-time sensor acquisition.
 
 ---
 
 ## 3. Host Environment & Toolchain Constraints
 
 1. **Firmware Cross-Compilation**:
-   - The embedded firmware is written targeting the Espressif ESP32-WROVER-B architecture using ESP-IDF v5.3.2.
-   - Building the native binary requires the ESP-IDF toolchain or an active containerized build environment.
+   - The embedded firmware is written targeting the STM32F407ZGT6 architecture using STM32CubeIDE / STM32 HAL / arm-none-eabi-gcc.
+   - Building the native binary requires the ARM GNU toolchain (`arm-none-eabi-gcc`), CMake / Make, or STM32CubeIDE.
 2. **Bench Testing**:
    - Automated testing on standard host machines is fully supported via the Python device simulator (`05_Software/device_simulator/virtual_device.py`), unit test parsers, and schema validation tools.
